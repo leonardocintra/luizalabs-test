@@ -1,8 +1,15 @@
-from bottle import Bottle
 from .controllers import home
-from .controllers.api import facebook
+from .controllers.api import users
 
-urls = Bottle()
+home = home.HomeView()
+user = users.UserView()
 
-urls.merge(home.home_app)
-urls.merge(facebook.facebook_app)
+
+def urlpatterns(app):
+    app.route('/', 'GET', home.index)
+
+    app.route('/api/users/', 'GET', user.index)
+    app.route('/api/users/<pk>/', 'GET', user.detail)
+    app.route('/api/users/', 'POST', user.create)
+    app.route('/api/users/<pk>/', 'PUT', user.update)
+    app.route('/api/users/<pk>/', 'DELETE', user.delete)
