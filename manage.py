@@ -1,13 +1,17 @@
 import bottle
-from logging import info
+import logging
 from app import Beer, settings
 
 
+logger = logging.Logger(__name__)
+
+
 def main():
-    info('Beer started')
+    logger.info('Beer started')
     beer = Beer(
         debug=settings.DEBUG,
-        reloader=settings.RELOADER)
+        reloader=settings.RELOADER,
+        logging_config=settings.LOGGING)
     bottle.run(
         beer.app,
         server=beer.server,

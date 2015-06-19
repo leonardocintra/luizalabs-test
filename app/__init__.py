@@ -1,4 +1,5 @@
 import bottle
+import logging.config
 from app import urls
 
 
@@ -10,7 +11,8 @@ class Beer:
                  port=3000,
                  debug=False,
                  reloader=True,
-                 template_path='./app/views/'):
+                 template_path='./app/views/',
+                 logging_config=None):
         self.server = server
         self.host = host
         self.port = port
@@ -26,6 +28,8 @@ class Beer:
             bottle.TEMPLATE_PATH.append(template_path)
 
         bottle.debug(self.debug)
+        if logging_config is not None:
+            logging.config.dictConfig(logging_config)
 
 
 class BeerView:
