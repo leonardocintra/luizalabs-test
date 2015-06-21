@@ -1,7 +1,8 @@
-from beer.db import Model, Session
+from sqlalchemy import *
+from beer.db import Base, Session
 
 
-class BeerModel(Model):
+class BeerModel:
     __tablename__ = 'logs'
 
     def __init__(self):

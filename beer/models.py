@@ -1,7 +1,7 @@
-from beer.core import Model, session
+from sqlalchemy import *
 
 
-class BeerModel(Model):
+class BeerModel:
 
     def __init__(self):
         self.engine = session

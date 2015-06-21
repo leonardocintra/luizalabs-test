@@ -1,14 +1,12 @@
-from app import settings
-from bottle.ext import sqlalchemy
+from beer.conf import settings
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
 
-Model = declarative_base()
-
-
-def parse_db(params):
+"""
+def connection_string():
+    params = settings.DATABASE
     return "{engine}:///{user}:{passwd}@{host}:{port}/{name}".format(
         engine=params['ENGINE'],
         user=params['USER'],
@@ -16,15 +14,12 @@ def parse_db(params):
         host=params['HOST'],
         port=params['PORT'],
         name=params['NAME'])
+"""
 
 
-Engine = create_engine(parse_db(settings.DATABASE))
+connection_string = "{ENGINE}:///{USER}:{PASSWORD}@{HOST}:{PORT}/{NAME}".format(
+    **settings.DATABASE)
+
+Base = declarative_base()
+Engine = create_engine(connection_string)
 Session = sessionmaker(bind=Engine)
-
-sqlalchemy_plugin = sqlalchemy.Plugin(
-    Engine,
-    Model.metadata,
-    keyword='db',
-    create=True,
-    commit=True,
-    use_kwargs=False)

@@ -1,6 +1,7 @@
 import bottle
 import logging.config
-from beer.db import sqlalchemy_plugin
+from bottle.ext import sqlalchemy
+from .db import Base, Engine
 from app import urls
 
 
@@ -32,6 +33,14 @@ class Beer:
         bottle.debug(self.debug)
         if logging_config is not None:
             logging.config.dictConfig(logging_config)
+
+        sqlalchemy_plugin = sqlalchemy.Plugin(
+            Engine,
+            Base.metadata,
+            keyword='db',
+            create=True,
+            commit=True,
+            use_kwargs=False)
 
         self.plugin_install(sqlalchemy_plugin)
 
