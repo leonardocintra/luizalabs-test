@@ -1,7 +1,9 @@
+import os
+import sys
 import bottle
 import logging
-from app import Beer, settings
-
+from beer.core import Beer
+from beer.conf import settings
 
 logger = logging.Logger(__name__)
 

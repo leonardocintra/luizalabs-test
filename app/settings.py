@@ -1,14 +1,29 @@
 import os
 
-
 BASE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)))
 
 DEBUG = True
 
 RELOADER = True
 
+DATABASE = {
+    'ENGINE': 'mysql',
+    'NAME': 'luizalabs',
+    'USER': 'root',
+    'PASSWORD': 'root',
+    'HOST': '127.0.0.1',
+    'PORT': '5432',
+}
+
+
 STATIC_URL = '/assets/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
+
+
+FACEBOOK_GRAPH = {
+    'access_token': '896437553749930|FEa-6TcQdIvSVIGoKuuTqJwSZfQ',
+    'fields': 'id,name,birthday,gender',
+}
 
 
 LOGGING = {
