@@ -3,5 +3,7 @@ from .controllers.api.users import user_api
 
 
 def routes(app):
+    # root route
     app.merge(home_app)
+    # API users routes
     app.mount('/api/', user_api)

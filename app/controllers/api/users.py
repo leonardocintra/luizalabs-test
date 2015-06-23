@@ -1,7 +1,8 @@
 import json
 import requests
-from bottle import Bottle, request, HTTPResponse
+from bottle import Bottle, request, HTTPResponse, HTTPError
 from app import settings
+from app.models import Pagination, serialize
 from app.models.user import User
 
 
@@ -10,34 +11,36 @@ user_api = Bottle()
 
 @user_api.get('/users')
 def list():
-    pager = 20
     page = request.GET.get('page', 1)
-    query = User.query.all()
-    paginator = len(query) // pager
+    per_page = 40
+    query = User.query
+    pagination = Pagination(query, page, per_page)
 
-    context = []
-    if query:
-        context = {
-            'page': page,
-            'paginator': paginator,
-            'objects': json.dumps([obj.as_json() for obj in query])
-        }
-    return HTTPResponse(context, status=200)
+    return HTTPResponse({
+        'pages': pagination.pages,
+        'prev': pagination.prev,
+        'next': pagination.next,
+        'objects': serialize(pagination.objects)},
+        status=200)
 
 
 @user_api.get('/user/<pk>')
 def detail(pk):
-    user = User.query.get(pk)
-    return HTTPResponse(user.as_json(), status=200)
+    try:
+        return User.get_or_404(id=pk).as_json()
+    except HTTPError:
+        return HTTPResponse({'error': 'Objeto não encontrado.'}, status=404)
 
 
 @user_api.post('/user')
 def create():
-    fb_user = __get_facebook_user(request.POST.get('fb_id'))
+    data = __get_facebook_user(request.POST.get('fb_id'))
+    user = User(fb_id=data.get('id'),
+                username=data.get('username'),
+                name=data.get('name'),
+                gender=data.get('gender'),
+                birthday=data.get('birthday'))
 
-    user = User(fb_id=fb_user.get('id'),
-                username=fb_user.get('username'),
-                name=fb_user.get('name'))
     if user.is_valid():
         user.save()
         return HTTPResponse(user.as_json(), status=201)
@@ -46,7 +49,20 @@ def create():
 
 @user_api.put('/user/<pk>')
 def update(pk):
-    return "Update: {}".format(pk)
+    data = json.loads(request.body.readline().decode('utf-8'))
+
+    user = User.get_or_404(id=pk)
+    user.fb_id = data['fb_id']
+    user.username = data['username']
+    user.name = data['name']
+    user.gender = data['gender']
+    user.birthday = data['birthday']
+
+    if user.is_valid():
+        # user.update(data)
+        return HTTPResponse(user.as_json(), status=200)
+
+    return HTTPResponse(user.errors_json(), status=400)
 
 
 @user_api.delete('/user/<pk>')
@@ -61,8 +77,10 @@ def __get_facebook_user(fb_id):
     resp = requests.get(url, params=settings.FACEBOOK_GRAPH)
     data = resp.json()
 
-    if not data.get('error') is None:
-        raise HTTPResponse(
-            json.dumps({'error': 'Usuário inválido ou não encontrado.'}),
-            status=404)
+    error = data.get('error')
+    if error:
+        msg = 'Usuário inválido ou não encontrado.'
+        if error['code'] == 190:
+            msg = 'Seu token expirou. Solicite outro em: https://developers.facebook.com/'
+        raise HTTPResponse(json.dumps({'error': msg}), status=404)
     return data

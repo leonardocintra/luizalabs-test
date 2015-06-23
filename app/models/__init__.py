@@ -1,5 +1,6 @@
 import json
 from bottle import abort
+from math import ceil
 import sqlalchemy as db
 from sqlalchemy.ext.declarative import declarative_base
 from app import settings
@@ -12,7 +13,37 @@ engine = db.create_engine(connection_string)
 Session = db.orm.scoped_session(db.orm.sessionmaker(bind=engine))
 
 
+class Pagination:
+
+    def __init__(self, query, page, per_page):
+        self.query = query
+        self.page = int(page)
+        self.per_page = per_page
+        self.total = query.count()
+
+    @property
+    def pages(self):
+        if self.per_page == 0:
+            pages = 0
+        else:
+            pages = int(ceil(self.total / self.per_page))
+        return pages
+
+    @property
+    def objects(self):
+        return self.query.limit(self.per_page).offset((self.page - 1) * self.per_page).all()
+
+    @property
+    def prev(self):
+        return self.page - 1 if self.page > 1 else self.page
+
+    @property
+    def next(self):
+        return self.page + 1 if len(self.objects) >= self.per_page else None
+
+
 class _ModelValidationMixin:
+
     """ Model Validation fields """
 
     def attr_validate(self, col, field, required=True, min_length=None):
@@ -21,7 +52,7 @@ class _ModelValidationMixin:
         if required and not field:
             msgs.update(required=self.__error_msgs('required'))
 
-        if not min_length is None and len(field) < min_length:
+        if field and not min_length is None and len(field) < min_length:
             msgs.update(
                 length=self.__error_msgs('length'), min_length=min_length)
 
@@ -49,41 +80,61 @@ class _ModelValidationMixin:
 
 
 class _BaseQueryMixin:
+
     """ Base Query Mixin
         Provide a additionals method to query
     """
     query = Session.query_property()
 
-    def get_or_404(self, **kwargs):
-        try:
-            self.query.filter_by(**kwargs).first()
-        except:
-            abort(404, "Objeto não encontrado.")
+    @classmethod
+    def get_or_404(cls, format=None, **kwargs):
+        query = cls.query.filter_by(**kwargs).first()
+        if query is None:
+            abort(404)
+        return query
 
-    def list_or_404(self, **kwargs):
+    @classmethod
+    def list_or_404(cls, format=None, **kwargs):
+        query = cls.query.filter_by(**kwargs)
+        if query is None:
+            abort(404)
+
+    def save(self):
         try:
-            self.query.filter_by(**kwargs)
-        except:
-            abort(404, "Objetos não encontrados.")
+            if not self.id:
+                Session.add(self)
+            Session.commit()
+        except db.exc.SQLAlchemyError:
+            Session.rollback()
+            raise
+
+    def delete(self):
+        try:
+            Session.delete(self)
+            Session.commit()
+            return True
+        except db.exc.SQLAlchemyError:
+            Session.rollback()
+            raise
 
 
 class _BaseModel(_BaseQueryMixin, _ModelValidationMixin):
+
     """ Helper Base Model
     """
 
     def as_json(self):
         return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
-    def save(self):
-        try:
-            Session.add(self)
-            Session.commit()
-            return True
-        except db.exc.SQLAlchemyError:
-            raise
-
     def __repr__(self):
         return '<{}: {}>'.format(self.__class__.__name__, self)
 
 # Base Model
 Model = declarative_base(cls=_BaseModel)
+
+
+def serialize(query):
+    serialized = []
+    if query:
+        serialized = [obj.as_json() for obj in query]
+    return serialized
