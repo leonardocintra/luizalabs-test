@@ -1,4 +1,5 @@
 import json
+from bottle import abort
 import sqlalchemy as db
 from sqlalchemy.ext.declarative import declarative_base
 from app import settings
@@ -11,7 +12,7 @@ engine = db.create_engine(connection_string)
 Session = db.orm.scoped_session(db.orm.sessionmaker(bind=engine))
 
 
-class ModelValidationMixin:
+class _ModelValidationMixin:
     """ Model Validation fields """
 
     def attr_validate(self, col, field, required=True, min_length=None):
@@ -47,15 +48,28 @@ class ModelValidationMixin:
         return error_msg[msg]
 
 
-class _BaseModel(ModelValidationMixin):
-
-    """
-        Helper Base Model
+class _BaseQueryMixin:
+    """ Base Query Mixin
+        Provide a additionals method to query
     """
     query = Session.query_property()
 
-    def __repr__(self):
-        return '<{}: {}>'.format(self.__class__.__name__, self)
+    def get_or_404(self, **kwargs):
+        try:
+            self.query.filter_by(**kwargs).first()
+        except:
+            abort(404, "Objeto não encontrado.")
+
+    def list_or_404(self, **kwargs):
+        try:
+            self.query.filter_by(**kwargs)
+        except:
+            abort(404, "Objetos não encontrados.")
+
+
+class _BaseModel(_BaseQueryMixin, _ModelValidationMixin):
+    """ Helper Base Model
+    """
 
     def as_json(self):
         return {c.name: getattr(self, c.name) for c in self.__table__.columns}
@@ -67,6 +81,9 @@ class _BaseModel(ModelValidationMixin):
             return True
         except db.exc.SQLAlchemyError:
             raise
+
+    def __repr__(self):
+        return '<{}: {}>'.format(self.__class__.__name__, self)
 
 # Base Model
 Model = declarative_base(cls=_BaseModel)
