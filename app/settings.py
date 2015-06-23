@@ -2,17 +2,15 @@ import os
 
 BASE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)))
 
-DEBUG = True
-
-RELOADER = True
+DEBUG = os.environ.get('DEBUG', False)
 
 DATABASE = {
-    'ENGINE': 'mysql',
-    'NAME': 'luizalabs',
-    'USER': 'root',
-    'PASSWORD': 'root',
-    'HOST': 'localhost',
-    'PORT': '5432'
+    'ENGINE': os.environ['DB_MYSQL'],
+    'NAME': os.environ['DB_NAME'],
+    'USER': os.environ['DB_USER'],
+    'PASSWORD': os.environ['DB_PASSWORD'],
+    'HOST': os.environ['DB_HOST'],
+    'PORT': os.environ['DB_HOST']
 }
 
 TEMPLATE_PATH = os.path.join(BASE_DIR, 'views')
@@ -22,8 +20,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
 
 
 FACEBOOK_GRAPH = {
-    'access_token': '896437553749930|FEa-6TcQdIvSVIGoKuuTqJwSZfQ',
-    'fields': 'id,username,name,birthday',
+    'access_token': os.environ['FB_ACCESS_TOKEN']
 }
 
 

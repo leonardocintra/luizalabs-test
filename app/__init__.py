@@ -1,10 +1,11 @@
 from __future__ import unicode_literals
 import os
 import click
+import env
 from bottle import static_file, Bottle, run, TEMPLATE_PATH
 from bottle.ext import sqlalchemy
 from app.models import engine, Model
-from app.routes import Routes
+from app.routes import routes
 from app import settings
 
 
@@ -12,7 +13,7 @@ TEMPLATE_PATH.insert(0, settings.TEMPLATE_PATH)
 
 app = Bottle()
 
-app.merge(Routes)
+routes(app)
 
 
 @app.route('/assets/<path:path>', name='assets')
@@ -47,7 +48,7 @@ def cmds():
               help=u'Set application server debug!')
 def runserver(port, ip, debug):
     run(app, host=ip, port=port,
-        debug=settings.DEBUG, reloader=settings.RELOADER)
+        debug=settings.DEBUG, reloader=settings.DEBUG)
     click.echo('Start server at: {}:{}'.format(ip, port))
     run(app=app, host=ip, port=port, debug=debug, reloader=debug)
 
