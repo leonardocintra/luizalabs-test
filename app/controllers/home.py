@@ -1,4 +1,4 @@
-from bottle import Bottle
+from bottle import Bottle, template
 
 
 home_app = Bottle()
@@ -6,4 +6,4 @@ home_app = Bottle()
 
 @home_app.route('/')
 def index():
-    return ""
+    return template("index.html")
