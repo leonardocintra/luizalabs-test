@@ -15,9 +15,7 @@ DATABASE = {
     'PORT': '5432'
 }
 
-
 TEMPLATE_PATH = os.path.join(BASE_DIR, 'views')
-
 
 STATIC_URL = '/assets/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'assets')

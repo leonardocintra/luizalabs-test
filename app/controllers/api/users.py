@@ -14,7 +14,7 @@ def list():
     pager = 20
     query = User.query.all()
     paginator = len(query) // pager
-    print(len(query))
+
     return {
         'page': 1,
         'paginator': paginator,

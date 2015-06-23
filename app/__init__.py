@@ -4,7 +4,7 @@ import click
 from bottle import static_file, Bottle, run, TEMPLATE_PATH
 from bottle.ext import sqlalchemy
 from app.models import engine, Model
-from app.urls import Routes
+from app.routes import Routes
 from app import settings
 
 
