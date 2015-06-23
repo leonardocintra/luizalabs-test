@@ -60,6 +60,7 @@ def __get_facebook_user(fb_id):
     url = "https://graph.facebook.com/v2.3/{}".format(fb_id)
     resp = requests.get(url, params=settings.FACEBOOK_GRAPH)
     data = resp.json()
+    print(data)
     if not data.get('error') is None:
         raise HTTPResponse(
             json.dumps({'error': 'Usuário inválido ou não encontrado.'}),

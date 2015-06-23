@@ -5,12 +5,12 @@ BASE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)))
 DEBUG = os.environ.get('DEBUG', False)
 
 DATABASE = {
-    'ENGINE': os.environ['DB_MYSQL'],
+    'ENGINE': os.environ['DB_ENGINE'],
     'NAME': os.environ['DB_NAME'],
     'USER': os.environ['DB_USER'],
     'PASSWORD': os.environ['DB_PASSWORD'],
     'HOST': os.environ['DB_HOST'],
-    'PORT': os.environ['DB_HOST']
+    'PORT': os.environ['DB_PORT']
 }
 
 TEMPLATE_PATH = os.path.join(BASE_DIR, 'views')

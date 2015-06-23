@@ -11,26 +11,8 @@ engine = db.create_engine(connection_string)
 Session = db.orm.scoped_session(db.orm.sessionmaker(bind=engine))
 
 
-class _BaseModel(object):
-
-    """
-        Helper Base Model
-    """
-    query = Session.query_property()
-
-    def __repr__(self):
-        return '<{}: {}>'.format(self.__class__.__name__, self)
-
-    def as_json(self):
-        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
-
-    def save(self):
-        try:
-            Session.add(self)
-            Session.commit()
-            return True
-        except db.orm.exc.SQLAlchemyExpction:
-            raise
+class ModelValidationMixin:
+    """ Model Validation fields """
 
     def attr_validate(self, col, field, required=True, min_length=None):
         msgs = {}
@@ -63,6 +45,28 @@ class _BaseModel(object):
                 kwargs.get('min_length', '')),
         }
         return error_msg[msg]
+
+
+class _BaseModel(ModelValidationMixin):
+
+    """
+        Helper Base Model
+    """
+    query = Session.query_property()
+
+    def __repr__(self):
+        return '<{}: {}>'.format(self.__class__.__name__, self)
+
+    def as_json(self):
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
+    def save(self):
+        try:
+            Session.add(self)
+            Session.commit()
+            return True
+        except db.exc.SQLAlchemyError:
+            raise
 
 # Base Model
 Model = declarative_base(cls=_BaseModel)
