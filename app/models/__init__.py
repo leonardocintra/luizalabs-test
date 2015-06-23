@@ -31,7 +31,8 @@ class Pagination:
 
     @property
     def objects(self):
-        return self.query.limit(self.per_page).offset((self.page - 1) * self.per_page).all()
+        offset = (self.page - 1) * self.per_page
+        return self.query.limit(self.per_page).offset(offset).all()
 
     @property
     def prev(self):
@@ -103,6 +104,7 @@ class _BaseQueryMixin:
         try:
             if not self.id:
                 Session.add(self)
+                return self
             Session.commit()
         except db.exc.SQLAlchemyError:
             Session.rollback()
