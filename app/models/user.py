@@ -5,9 +5,9 @@ class User(Model):
     __tablename__ = 'user'
 
     id = db.Column(db.Integer, db.Sequence('user_id'), primary_key=True)
-    fb_id = db.Column(db.Integer)
+    fb_id = db.Column(db.Integer, unique=True, nullable=False)
     username = db.Column(db.String(50))
-    name = db.Column(db.String(80))
+    name = db.Column(db.String(80), nullable=False)
     gender = db.Column(db.String(10))
     birthday = db.Column(db.Date)
 
