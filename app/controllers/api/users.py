@@ -59,7 +59,7 @@ def update(pk):
     user.birthday = data['birthday']
 
     if user.is_valid():
-        # user.update(data)
+        user.save()
         return HTTPResponse(user.as_json(), status=200)
 
     return HTTPResponse(user.errors_json(), status=400)
