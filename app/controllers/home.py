@@ -1,7 +1,9 @@
-from beer.controllers import BeerView
+from bottle import Bottle
 
 
-class HomeView(BeerView):
+home_app = Bottle()
 
-    def index(self):
-        return self.render('index.html')
+
+@home_app.route('/')
+def index():
+    return ""

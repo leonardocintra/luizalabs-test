@@ -1,15 +1,15 @@
-from beer.db import models
+from app.models import *
 
 
-class User(models.Base):
-    __tablename__ = 'users'
+class User(Model):
+    __tablename__ = 'user'
 
-    id = models.Column(models.Integer, primary_key=True)
-    fb_id = models.Column(models.Integer)
-    username = models.Column(models.String(50))
-    name = models.Column(models.String(80))
-    gender = models.Column(models.String(10))
-    birthday = models.Column(models.Date)
+    id = db.Column(db.Integer, db.Sequence('id'), primary_key=True)
+    fb_id = db.Column(db.Integer)
+    username = db.Column(db.String(50))
+    name = db.Column(db.String(80))
+    gender = db.Column(db.String(10))
+    birthday = db.Column(db.Date)
 
     def __str__(self):
         return self.name

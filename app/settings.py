@@ -11,9 +11,12 @@ DATABASE = {
     'NAME': 'luizalabs',
     'USER': 'root',
     'PASSWORD': 'root',
-    'HOST': '127.0.0.1',
-    'PORT': '5432',
+    'HOST': 'localhost',
+    'PORT': '5432'
 }
+
+
+TEMPLATE_PATH = os.path.join(BASE_DIR, 'views')
 
 
 STATIC_URL = '/assets/'
@@ -22,7 +25,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
 
 FACEBOOK_GRAPH = {
     'access_token': '896437553749930|FEa-6TcQdIvSVIGoKuuTqJwSZfQ',
-    'fields': 'id,name,birthday,gender',
+    'fields': 'id,username,name,birthday',
 }
 
 

@@ -18,15 +18,15 @@ import sqlalchemy as sa
 
 def upgrade():
     op.create_table(
-        'users',
+        'user',
         sa.Column('id', sa.Integer, primary_key=True),
-        sa.Column('fb_id', sa.Integer),
-        sa.Column('username', sa.String(50)),
-        sa.Column('name', sa.String(80)),
-        sa.Column('gender', sa.String(80), nullable=False),
-        sa.Column('birthday', sa.Date(), nullable=False),
+        sa.Column('fb_id', sa.Integer, nullable=False),
+        sa.Column('username', sa.String(50), nullable=False),
+        sa.Column('name', sa.String(80), nullable=False),
+        sa.Column('gender', sa.String(80)),
+        sa.Column('birthday', sa.Date()),
     )
 
 
 def downgrade():
-    op.drop_table('users')
+    op.drop_table('user')
