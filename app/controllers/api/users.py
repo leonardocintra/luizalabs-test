@@ -29,17 +29,22 @@ def detail(pk):
     try:
         return User.get_or_404(id=pk).as_json()
     except HTTPError:
-        return HTTPResponse({'error': 'Objeto não encontrado.'}, status=404)
+        return HTTPResponse('Objeto não encontrado.', status=404)
 
 
 @user_api.post('/user')
 def create():
-    data = __get_facebook_user(request.POST.get('fb_id'))
+    fb_id = request.POST.get('fb_id')
+    if fb_id is None:
+        return HTTPResponse('Informe o ID de usuário do Facebook', status=428)
+
+    data = __get_facebook_user(fb_id)
+    # data = request.params
     user = User(fb_id=data.get('id'),
-                username=data.get('username'),
-                name=data.get('name'),
-                gender=data.get('gender'),
-                birthday=data.get('birthday'))
+                username=data.get('username', ''),
+                name=data.get('name', ''),
+                gender=data.get('gender', ''),
+                birthday=data.get('birthday', None))
 
     if user.is_valid():
         user.save()
@@ -49,14 +54,13 @@ def create():
 
 @user_api.put('/user/<pk>')
 def update(pk):
-    data = json.loads(request.body.readline().decode('utf-8'))
+    data = request.params
 
     user = User.get_or_404(id=pk)
-    user.fb_id = data['fb_id']
-    user.username = data['username']
-    user.name = data['name']
-    user.gender = data['gender']
-    user.birthday = data['birthday']
+    user.username = data.get('username', '')
+    user.name = data.get('name', '')
+    user.gender = data.get('gender', '')
+    user.birthday = data.get('birthday', '')
 
     if user.is_valid():
         user.save()

@@ -40,7 +40,7 @@ def cmds():
 
 
 @cmds.command()
-@click.option('--port', default=os.environ.get('PORT', 8080), type=int,
+@click.option('--port', default=os.environ.get('PORT', 9000), type=int,
               help=u'Set application server port!')
 @click.option('--ip', default='0.0.0.0', type=str,
               help=u'Set application server ip!')

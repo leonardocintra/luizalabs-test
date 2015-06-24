@@ -1,8 +1,9 @@
 import json
-from bottle import abort
-from math import ceil
 import sqlalchemy as db
+from bottle import abort
 from sqlalchemy.ext.declarative import declarative_base
+from math import ceil
+from datetime import date
 from app import settings
 
 
@@ -99,22 +100,23 @@ class _BaseQueryMixin:
         query = cls.query.filter_by(**kwargs)
         if query is None:
             abort(404)
+        return query
 
     def save(self):
         try:
             if not self.id:
                 Session.add(self)
-                return self
             Session.commit()
         except db.exc.SQLAlchemyError:
             Session.rollback()
             raise
+        return self
 
     def delete(self):
         try:
             Session.delete(self)
             Session.commit()
-            return True
+            return self
         except db.exc.SQLAlchemyError:
             Session.rollback()
             raise
@@ -126,7 +128,12 @@ class _BaseModel(_BaseQueryMixin, _ModelValidationMixin):
     """
 
     def as_json(self):
-        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+        data = {}
+        for c in self.__table__.columns:
+            attr = getattr(self, c.name)
+            val = str(attr) if type(attr) is date else attr
+            data[c.name] = val
+        return data
 
     def __repr__(self):
         return '<{}: {}>'.format(self.__class__.__name__, self)
