@@ -1,9 +1,7 @@
-from bottle import Bottle, template
+from bottle import template
 
 
-home_app = Bottle()
+class HomeController:
 
-
-@home_app.route('/')
-def index():
-    return template("index.html")
+    def index(self):
+        return template("index.html")

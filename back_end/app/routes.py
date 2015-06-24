@@ -1,13 +1,23 @@
-from bottle import Bottle
-from .controllers.home import home_app
-from .controllers.api.users import user_api
-from .controllers.api.facebook import fb_api
-
-Routes = Bottle()
+from .controllers.home import HomeController
+from .controllers.api.users import UserController
+from .controllers.api.facebook import FacebookController
 
 
-# root route
-Routes.merge(home_app)
-# API users routes
-Routes.mount('/api/', user_api)
-Routes.mount('/api/facebook/', fb_api)
+home = HomeController()
+user = UserController()
+facebook = FacebookController()
+
+
+def urlpatterns(app):
+    # root route
+    app.route('/', 'GET', home.index)
+
+    # Users API routes
+    app.route('/api/users', 'GET', user.list)
+    app.route('/api/user/<pk>', 'GET', user.detail)
+    app.route('/api/user', 'POST', user.create)
+    app.route('/api/user/<pk>', 'PUT', user.update)
+    app.route('/api/user/<pk>', 'DELETE', user.delete)
+
+    # Facebook API
+    app.route('/api/facebook/<pk>', 'GET', facebook.detail)

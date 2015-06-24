@@ -37,7 +37,7 @@ class Pagination:
 
     @property
     def prev(self):
-        return self.page - 1 if self.page > 1 else self.page
+        return self.page - 1 if self.page >= 1 else self.page
 
     @property
     def next(self):

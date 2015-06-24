@@ -2,37 +2,30 @@ from __future__ import unicode_literals
 import os
 import click
 import env
-from bottle import static_file, Bottle, run, hook, response, TEMPLATE_PATH
+from bottle import Bottle, run, response, HTTPResponse, static_file, TEMPLATE_PATH
 from bottle.ext import sqlalchemy
 from app.models import engine, Model
-from app.routes import Routes
+from app.routes import urlpatterns
 from app import settings
 
 
 TEMPLATE_PATH.insert(0, settings.TEMPLATE_PATH)
 
+
 app = Bottle()
 
+urlpatterns(app)
 
-# Merge Routes
-app.merge(Routes)
+
+@app.hook('after_request')
+def enable_cors():
+    hosts = '*' if settings.DEBUG else settings.ALLOWED_HOSTS
+    response.headers['Access-Control-Allow-Origin'] = hosts
 
 
 @app.route('/assets/<path:path>', name='assets')
 def assets(path):
     yield static_file(path, root=settings.STATIC_PATH)
-
-
-# Cross-domain
-@app.hook('after_request')
-def enable_cors():
-    print("after_request hook")
-    response.headers['Access-Control-Allow-Origin'] = '*'
-    response.headers['Access-Control-Expose-Headers'] = 'Access-Control-Allow-Origin'
-    response.headers['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept'
-    response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS'
-    return response
-
 
 sqlalchemy_plugin = sqlalchemy.Plugin(
     engine,

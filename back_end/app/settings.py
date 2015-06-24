@@ -4,6 +4,9 @@ BASE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)))
 
 DEBUG = True
 
+# Set hosts if DEBUG is False
+ALLOWED_HOSTS = []
+
 DATABASE = {
     'ENGINE': os.environ['DB_ENGINE'],
     'NAME': os.environ['DB_NAME'],
@@ -26,7 +29,7 @@ FACEBOOK_GRAPH = {
 
 LOGGING = {
     'version': 1,
-    'disable_existing_loggers': False,
+    'disable_existing_loggers': True,
     'formatters': {
         'verbose': {
             'format': "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
@@ -40,7 +43,7 @@ LOGGING = {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': os.path.join(BASE_DIR, '../luizalabs.log'),
+            'filename': os.path.join(os.path.dirname(BASE_DIR), 'luizalabs.log'),
             'formatter': 'verbose'
         },
     },
