@@ -5,7 +5,7 @@ from unittest import TestCase
 class FacebookControllerTest(TestCase):
 
     def setUp(self):
-        self.url = 'http://localhost:5050/api/facebook/{}'
+        self.url = 'http://localhost:8080/api/facebook/{}'
 
     def test_detail(self):
         """ GET /api/facebook/<pk> must be return status code 200. """

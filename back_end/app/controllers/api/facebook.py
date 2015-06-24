@@ -7,7 +7,7 @@ from app import settings
 fb_api = Bottle()
 
 
-@fb_api.get('/facebook/<pk>')
+@fb_api.get('/<pk>')
 def detail(fb_id):
     if not fb_id:
         return HTTPResponse('Informe o ID de usuário do Facebook', status=428)

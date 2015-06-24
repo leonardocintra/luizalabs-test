@@ -9,7 +9,7 @@ from app.models.user import User
 user_api = Bottle()
 
 
-@user_api.get('/users')
+@user_api.route('/users', 'GET')
 def list():
     page = request.GET.get('page', 1)
     per_page = 40

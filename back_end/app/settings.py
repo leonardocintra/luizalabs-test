@@ -2,7 +2,7 @@ import os
 
 BASE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)))
 
-DEBUG = os.environ.get('DEBUG', False)
+DEBUG = True
 
 DATABASE = {
     'ENGINE': os.environ['DB_ENGINE'],
