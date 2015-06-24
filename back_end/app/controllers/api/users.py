@@ -17,22 +17,21 @@ class UserController:
             'pages': pagination.pages,
             'prev': pagination.prev,
             'next': pagination.next,
+            'current': page,
             'objects': serialize(pagination.objects)
         }
         return context
 
     def detail(self, pk):
-        try:
-            return User.get_or_404(id=pk).as_json()
-        except HTTPError:
-            response.status = 404
-            return 'Objeto não encontrado.'
+        user = User.get_or_404(id=pk)
+        if user:
+            return user.as_json()
 
     def create(self):
         fb_id = request.POST.get('fb_id')
         if fb_id is None:
             response.status = 428
-            return {'error': 'Informe o ID de usuário do Facebook'}
+            return {'msg': 'Informe um ID de usuário do Facebook'}
 
         data = self.__get_facebook_user(fb_id)
         # data = request.params
@@ -81,6 +80,6 @@ class UserController:
             msg = 'Usuário inválido ou não encontrado.'
             if error['code'] == 190:
                 msg = 'Seu token expirou. Solicite outro em: https://developers.facebook.com/'
-            response.status = 404
-            return {'error': msg}
+            response.status = 400
+            return {'msg': msg}
         return data

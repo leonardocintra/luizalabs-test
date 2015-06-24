@@ -41,7 +41,7 @@ class Pagination:
 
     @property
     def next(self):
-        return self.page + 1 if len(self.objects) >= self.per_page else None
+        return self.page + 1 if self.page < self.pages else None
 
 
 class _ModelValidationMixin:

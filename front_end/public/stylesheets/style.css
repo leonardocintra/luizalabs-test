@@ -1,8 +1,21 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto);
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
+    padding-top: 60px;
+    background: #f2f2f2;
+    color: #212121;
+}
+a {
+    color: #00B7FF;
+}
+table.table {
+    background-color: #fff;
+}
+table.table td {
+    vertical-align: middle !important;
 }
 
-a {
-  color: #00B7FF;
-}
+/******
+Transitions
+******/
+.remove-transition { }

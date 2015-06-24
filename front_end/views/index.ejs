@@ -1,0 +1,42 @@
+<% include header %>
+<h1>Usuários</h1>
+
+<table class="table table-hover">
+    <thead>
+        <th></th>
+        <th>Username</th>
+        <th>Nome</th>
+        <th colspan="2">Facebook ID</th>
+    </thead>
+
+    <tbody>
+        <tr v-repeat="user: users" v-transtition="remove-transition" class="item-{{user.id}}">
+            <td></td>
+            <td>
+                <a href="" v-on="click: update(user)">{{user.username}}</a>
+            </td>
+            <td>{{user.name}}</td>
+            <td>{{user.fb_id}}</td>
+            <td>
+            <button class="btn btn-sm" v-on="click: delete(user)"><i class="glyphicon glyphicon-trash"></i></button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<ul class="pagination">
+    <li v-show="prev">
+        <a href="javascript:void()" v-on="click: list(prev)" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+        </a>
+    </li>
+    <li v-repeat="pages">
+        <a href="javascript:void()" v-on="click:list($index+1)">{{$index+1}}</a>
+    </li>
+    <li v-show="next">
+        <a href="javascript:void(0)" v-on="click: list(next)" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+        </a>
+    </li>
+</ul>
+<% include footer %>
