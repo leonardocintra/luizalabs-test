@@ -1,4 +1,4 @@
-API_URL = "http://127.0.0.1:4000/api/";
+API_URL = "http://127.0.0.1:8080/api/";
 API_USER_URL = API_URL + "user/";
 
 new Vue({
@@ -14,7 +14,6 @@ new Vue({
     user: {
       id: null,
       fb_id: null,
-      username: "",
       username: "",
       name: "",
       gender: "",
@@ -60,8 +59,8 @@ new Vue({
     },
     detail: function(id) {
       var self = this,
-          settings = self.settings,
-          url = API_USER_URL + id;
+      settings = self.settings,
+      url = API_USER_URL + id;
 
       settings.url = url;
       jQuery.ajax(settings).done(function (resp) {
@@ -80,7 +79,7 @@ new Vue({
     },
     post: function() {
       var self = this,
-          settings = self.settings;
+      settings = self.settings;
 
       settings.url = API_USER_URL;
       settings.type = "POST";
@@ -91,7 +90,7 @@ new Vue({
     },
     put: function(id) {
       var self = this,
-          settings = self.settings;
+      settings = self.settings;
 
       settings.url = API_USER_URL + id;
       settings.type = "PUT";

@@ -20,7 +20,7 @@
         </div>
 
         <div class="form-group">
-            <div class="row">
+            <div class="row clearfix">
                 <div class="col-sm-6">
                     <label for="id_gender" class="control-label">Sexo</label>
                     <select id="id_gender" v-model="user.gender" class="form-control">
@@ -35,6 +35,10 @@
                     <input type="date" id="id_birthday" v-model="user.birthday" class="form-control">
                 </div>
             </div>
+        </div>
+
+        <div v-show="self.user.id" class="form-control">
+            <button v-on="click: delete(user)" class="btn btn-danger">Excluir usuário</button>
         </div>
     </div>
 
