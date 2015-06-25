@@ -26,7 +26,6 @@ def upgrade():
         sa.Column('gender', sa.String(10)),
         sa.Column('birthday', sa.Date()),
     )
-    op.create_index('user', 'fb_id', unique=True)
 
 
 def downgrade():
