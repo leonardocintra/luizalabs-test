@@ -4,11 +4,11 @@
 
 Desenvolver um sistema de cadastro de usuários
 
-Requisitos
+### Requisitos
 
 * O front deverá se conectar ao back­end por API
 * API deve seguir os princípios REST
-*Salvar as informações necessárias em um banco de dados relacional de sua escolha
+* Salvar as informações necessárias em um banco de dados relacional de sua escolha
 * Desenvolvimento em Python | Node.Js | GO
 * Utilizar uma ferramenta de versionamento
 * Documentar como rodar o projeto
@@ -16,7 +16,7 @@ Requisitos
 
 #### Dependências
 
-* Python - v3.4.3
+* Python > v3.4
 * Node.js
 * MySQL
 
@@ -31,53 +31,67 @@ Com as dependências já instaladas, abra o terminal e digite:
 ```
 
 
-#### Dependências Back-End
+## Back-End
 
-Ainda no terminal, digite:
+
+### Instalação em configuração do Back-End
+
+
+```sh
+    cd back_end
+```
+
+##### Ambiente virtual e e instação dependências:
 
 ```sh
     pyvenv venv
+    source venv/bin/activate
     pip install -r requirements.txt
 ```
 
-#### Dependências Front-End.
 
-Ainda no terminal, digite:
+##### Banco de Dados
 
-```sh
-    cd front_end
-    npm install express express-load body-parser cookie-parser morgan serve-favicon ejs
+No MySQL crie um schema chamado luizalabs.
+
+```
+mysql -u root
 ```
 
-## Rodando o projeto
+No arquivo env.py, configure as seguintes variáveis de ambiente com os dados da sua instalação local.
 
-
-#### Banco de dados
-
-Vá até o arquivo env.py que se encontra
-
-```sh
-    cd front_end
-    alembic upgrade head
+```
+os.environ['DB_NAME'] = 'luizalabs'
+os.environ['DB_USER'] = 'yout_user'
+os.environ['DB_PASSWORD'] = 'your_password'
+os.environ['DB_HOST'] = 'localhost'
+os.environ['DB_PORT'] = '5432'
 ```
 
-#### Back-End
+Configuração efetuada no env.py, precisamos configurar nosso sistema de versionamento de banco de dados. Abra o arquivo alembic.ini, vá até a linha 32 e substitua your_user e your_password com o seu usuário e senha do MySQL.
 
-Abra um novo terminal e vá até pasta 'back_end', confira abaixo:
+```
+sqlalchemy.url = mysql://your_user:your_pasword@localhost/luizalabs
+```
 
-```sh
-    cd luiza_labs/back_end
-    python manage.py runserver
+Gerandos as tabelas:
+
+```
+alembic upgrade head
 ```
 
 
-#### Front-End
+### Rodando o BackEnd
 
-Abra um novo terminal e vá até pasta 'front_end', confira abaixo:
+Após ter executado com sucesso os processos anteriores, é hora de rodar nosso back-end.
 
-```sh
-    cd luiza_labs/front_end
-    nodejs app.js
+```
+python manage.py runserver
 ```
 
-No navegador acesse: http://localhost
+Acesse no link: http://127.0.0.1:8080/
+
+
+## Front-End
+
+Em uma nova janela do terminal acesse o diretório do projeto e vá até a pasta 'front_end'ba
