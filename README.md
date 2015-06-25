@@ -21,7 +21,7 @@ Desenvolver um sistema de cadastro de usuários
 * MySQL
 
 
-#### Instalação
+#### Download do projeto
 
 Com as dependências já instaladas, abra o terminal e digite:
 
