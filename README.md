@@ -4,7 +4,7 @@
 
 Desenvolver um sistema de cadastro de usuários
 
-### Requisitos
+#### Requisitos
 
 * O front deverá se conectar ao back­end por API
 * API deve seguir os princípios REST
@@ -26,22 +26,22 @@ Desenvolver um sistema de cadastro de usuários
 Com as dependências já instaladas, abra o terminal e digite:
 
 ```sh
-    $ git clone https://github.com.br/matheusho/luizalabs-test.git
-    $ cd luiza-test
+    $ git clone https://github.com/matheusho/luizalabs-test.git
+    $ cd luizalabs-test
 ```
 
 
 ## Back-End
 
 
-### Instalação em configuração do Back-End
+Acesse a pasta 'back_end' para começar a instalação:
 
 
 ```sh
     cd back_end
 ```
 
-##### Ambiente virtual e e instação dependências:
+##### Ambiente virtual e instação dependências
 
 ```sh
     pyvenv venv
@@ -52,13 +52,14 @@ Com as dependências já instaladas, abra o terminal e digite:
 
 ##### Banco de Dados
 
-No MySQL crie um schema chamado luizalabs.
+No MySQL crie um schema com o nome luizalabs.
 
 ```
-mysql -u root
+mysql -u your_user -p
+create schema luizalabs
 ```
 
-No arquivo env.py, configure as seguintes variáveis de ambiente com os dados da sua instalação local.
+No arquivo env.py configure as seguintes variáveis de ambiente com os dados da sua instalação local.
 
 ```
 os.environ['DB_NAME'] = 'luizalabs'
@@ -81,7 +82,7 @@ alembic upgrade head
 ```
 
 
-### Rodando o BackEnd
+##### Rodando o BackEnd
 
 Após ter executado com sucesso os processos anteriores, é hora de rodar nosso back-end.
 
@@ -94,4 +95,18 @@ Acesse no link: http://127.0.0.1:8080/
 
 ## Front-End
 
-Em uma nova janela do terminal acesse o diretório do projeto e vá até a pasta 'front_end'ba
+Em uma nova janela do terminal acesse o diretório do projeto e vá até a pasta 'front_end'.
+
+##### Dependências
+
+```
+npm install express express-load body-parser cookie-parser morgan ejs
+```
+
+##### Rodando
+
+```
+nodejs app.js
+```
+
+Acesse no link: http://127.0.0.1:3000/
