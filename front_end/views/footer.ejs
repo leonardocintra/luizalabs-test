@@ -1,8 +1,15 @@
+                    </div>
                 </div>
             </main>
         </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/0.12.1/vue.min.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
         <script type="text/javascript" src="/javascripts/users.js"></script>
+        <script type="text/javascript">
+        jQuery(document).ready(function() {
+            var pathname = window.location.pathname;
+            jQuery('ul.nav a[href="' + pathname + '"]').addClass('active');
+        });
+        </script>
     </body>
 </html>

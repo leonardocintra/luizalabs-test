@@ -23,7 +23,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
 
 
 FACEBOOK_GRAPH = {
-    'access_token': os.environ['FB_ACCESS_TOKEN']
+    'access_token': os.environ['FB_ACCESS_TOKEN'],
+    'app_id': os.environ['APP_ID'],
 }
 
 

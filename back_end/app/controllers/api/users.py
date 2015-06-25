@@ -1,6 +1,4 @@
-import requests
-from bottle import request, response, abort
-from app import settings
+from bottle import request, response
 from app.models import Pagination, serialize
 from app.models.user import User
 
@@ -10,7 +8,7 @@ class UserController:
     def list(self):
         page = request.GET.get('page', 1)
         search = request.GET.get('search')
-        per_page = 2
+        per_page = 20
         query = User.query
 
         if search is not None:
@@ -38,12 +36,8 @@ class UserController:
             return user.as_json()
 
     def create(self):
-        fb_id = request.POST.get('fb_id')
-        if not fb_id:
-            return abort(428)
-
-        data = self.__get_facebook_user(fb_id)
-        user = User(fb_id=data.get('id'),
+        data = request.params
+        user = User(fb_id=data.get('fb_id'),
                     username=data.get('username', ''),
                     name=data.get('name', ''),
                     gender=data.get('gender', ''),
@@ -58,7 +52,6 @@ class UserController:
 
     def update(self, pk):
         data = request.params
-
         user = User.get_or_404(id=pk)
         user.username = data.get('username', '')
         user.name = data.get('name', '')
@@ -73,19 +66,6 @@ class UserController:
 
     def delete(self, pk):
         user = User.get_or_404(id=pk)
-        print(user)
         user.delete()
         response.status = 204
         return ""
-
-    def __get_facebook_user(self, fb_id):
-        url = "https://graph.facebook.com/v2.3/{}".format(fb_id)
-        resp = requests.get(url, params=settings.FACEBOOK_GRAPH)
-        data = resp.json()
-
-        error = data.get('error')
-        if error:
-            if error['code'] == 190:
-                raise abort(400, 'Token expirado.')
-            raise abort(404, 'Usuário não encontrado informe um ID válido.')
-        return data

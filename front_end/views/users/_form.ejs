@@ -1,22 +1,21 @@
-<% include ../header %>
-<h2>Informe um usuário do facebook para continuar.</h2>
+<div id="form-user-component" v-show="userExists">
+    {{ user.name }}
 
-<form v-on="submit: submit">
-    <input v-model="user.id" type="hidden" value="<%- id %>">
-
-    <div class="form-group">
-        <label for="id_fb_id" class="control-label">Facebook ID</label>
-        <input type="text" name="fb_id" id="id_fb_id" v-model="user.fb_id" class="form-control">
-    </div>
-    <div v-show="">
+    <form v-on="submit: submit">
+        <input type="hidden" id="id_fb_id" v-model="user.fb_id" class="form-control">
         <div class="form-group">
-            <label for="username" class="control-label">Usuário</label>
-            <input type="text" id="id_username" v-model="user.username" class="form-control">
+            <label for="id_fb_id" class="control-label">Facebook ID</label>
+            <span class="form-control">{{ user.fb_id }}</span>
         </div>
 
         <div class="form-group">
             <label for="name" class="control-label">Nome</label>
             <input type="text" id="id_name" v-model="user.name" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label for="username" class="control-label">Usuário</label>
+            <input type="text" id="id_username" v-model="user.username" class="form-control">
         </div>
 
         <div class="form-group">
@@ -36,15 +35,9 @@
                 </div>
             </div>
         </div>
-
-        <div v-show="self.user.id" class="form-control">
-            <button v-on="click: delete(user)" class="btn btn-danger">Excluir usuário</button>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Salvar</button>
+            <a href="#" class="btn btn-default" v-on="click: cancel">Cancelar</a>
         </div>
-    </div>
-
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary">Salvar</button>
-        <a href="/" title="Usuário" class="btn btn-link btn-sm">Volta à listagem</a>
-    </div>
-</form>
-<% include ../footer %>
+    </form>
+</div>

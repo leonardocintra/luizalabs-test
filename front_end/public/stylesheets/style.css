@@ -1,7 +1,8 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto);
 body {
     font-family: 'Roboto', sans-serif;
-    padding-top: 60px;
+    padding-top: 80px;
+    padding-bottom: 100px;
     background: #fff;
     color: #212121;
 }
@@ -18,7 +19,12 @@ table.table td {
     color: #fff !important;
 }
 nav {
-    background-color: #6f5499;
+    background-color: #6f5499 !important;
+    border-color: #6f5499 !important;
+}
+.navbar-inverse .navbar-nav>li>a.active {
+    color: #fff;
+    background-color: transparent;
 }
 
 

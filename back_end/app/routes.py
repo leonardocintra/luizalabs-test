@@ -16,8 +16,9 @@ def urlpatterns(app):
     app.route('/api/users/', 'GET', user.list)
     app.route('/api/user/<pk>', 'GET', user.detail)
     app.route('/api/user/', 'POST', user.create)
-    app.route('/api/user/<pk>', 'PUT', user.update)
-    app.route('/api/user/<pk>', 'DELETE', user.delete)
+    app.route('/api/user/<pk>', ['OPTIONS', 'PUT'], user.update)
+    app.route('/api/user/<pk>', ['OPTIONS', 'DELETE'], user.delete)
 
     # Facebook API
+    # app.route('/api/facebook/auth/', 'GET', facebook.auth)
     app.route('/api/facebook/<pk>', 'GET', facebook.detail)

@@ -21,8 +21,8 @@ urlpatterns(app)
 def enable_cors():
     hosts = '*' if settings.DEBUG else settings.ALLOWED_HOSTS
     response.headers['Access-Control-Allow-Origin'] = hosts
-    response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, OPTIONS'
-    response.headers['Access-Control-Allow-Headers'] = 'Origin, Accept, Content-Type, X-Requested-With, X-CSRF-Token'
+    response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS'
+    response.headers['Access-Control-Allow-Headers'] = 'Origin, Accept, Content-Type, X-Requeste-With, X-HTTP-Method-Override, X-CSRF-Token'
 
 
 @app.route('/assets/<path:path>', name='assets')

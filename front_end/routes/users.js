@@ -2,7 +2,6 @@ module.exports = function(app) {
 
   var user = app.controllers.users;
 
-  app.get('/', user.index);
-  app.get('/new', user.new);
-  app.get('/:id/edit/', user.edit);
+  app.get('/users/', user.index);
+  app.get('/users/:id/edit/', user.edit);
 };

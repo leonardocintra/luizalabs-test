@@ -1,0 +1,24 @@
+<% include ../header %>
+<h1>Cadastrar</h1>
+
+<div id="form-user" v-show="!userExists">
+    <div class="row">
+        <div class="col-sm-6">
+            <p><strong>Cadastrar usuário com um Facebook ID</strong></p>
+            <form v-on="submit: getFacebookUser" class="form-inline">
+                <div class="form-group">
+                    <input type="text" id="id_fb_id" placeholder="Entre aqui com o ID" class="form-control" v-model="user.fb_id">
+                </div>
+                <button class="btn btn-default">Buscar</button>
+                <span class="help-block" v-text="messages.fb_id"></span>
+            </form>
+        </div>
+        <div class="col-sm-6">
+            <p><strong>Utilizar uma conta do Facebook</strong></p>
+            <a href="#" class="btn btn-primary">Cadastrar</a>
+        </div>
+    </div>
+</div>
+
+<% include ../users/_form %>
+<% include ../footer %>
