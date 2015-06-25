@@ -54,7 +54,7 @@ class _ModelValidationMixin:
         if required and not field:
             msgs.update(required=self.__error_msgs('required'))
 
-        if field and not min_length is None and len(field) < min_length:
+        if field and min_length is not None and len(field) < min_length:
             msgs.update(
                 length=self.__error_msgs('length'), min_length=min_length)
 
@@ -104,22 +104,19 @@ class _BaseQueryMixin:
 
     def save(self):
         try:
-            if not self.id:
+            if self.id is None:
                 Session.add(self)
             Session.commit()
-        except db.exc.SQLAlchemyError:
-            Session.rollback()
-            raise
+        except db.exc.IntegrityError:
+            Session.close()
+            raise abort(409)
         return self
 
     def delete(self):
-        try:
-            Session.delete(self)
-            Session.commit()
-            return self
-        except db.exc.SQLAlchemyError:
-            Session.rollback()
-            raise
+        session = Session
+        session.delete(self)
+        session.commit()
+        session.close()
 
 
 class _BaseModel(_BaseQueryMixin, _ModelValidationMixin):

@@ -1,5 +1,5 @@
 import requests
-from bottle import request, response, HTTPError
+from bottle import request, response, abort
 from app import settings
 from app.models import Pagination, serialize
 from app.models.user import User
@@ -9,8 +9,18 @@ class UserController:
 
     def list(self):
         page = request.GET.get('page', 1)
-        per_page = 5
+        search = request.GET.get('search')
+        per_page = 2
         query = User.query
+
+        if search is not None:
+            search = '%{}%'.format(search)
+            query = User.query.filter(
+                User.username.ilike(search) |
+                User.fb_id.ilike(search) |
+                User.name.ilike(search) |
+                User.gender.ilike(search))
+        query = query.order_by(User.name)
         pagination = Pagination(query, page, per_page)
 
         context = {
@@ -29,12 +39,10 @@ class UserController:
 
     def create(self):
         fb_id = request.POST.get('fb_id')
-        if fb_id is None:
-            response.status = 428
-            return {'msg': 'Informe um ID de usuário do Facebook'}
+        if not fb_id:
+            return abort(428)
 
         data = self.__get_facebook_user(fb_id)
-        # data = request.params
         user = User(fb_id=data.get('id'),
                     username=data.get('username', ''),
                     name=data.get('name', ''),
@@ -60,15 +68,15 @@ class UserController:
         if user.is_valid():
             user.save()
             return user.as_json()
-
         response.status = 400
         return user.errors_json()
 
     def delete(self, pk):
-        user = User.query.get(pk)
-        user = user.delete()
+        user = User.get_or_404(id=pk)
+        print(user)
+        user.delete()
         response.status = 204
-        return""
+        return ""
 
     def __get_facebook_user(self, fb_id):
         url = "https://graph.facebook.com/v2.3/{}".format(fb_id)
@@ -77,9 +85,7 @@ class UserController:
 
         error = data.get('error')
         if error:
-            msg = 'Usuário inválido ou não encontrado.'
             if error['code'] == 190:
-                msg = 'Seu token expirou. Solicite outro em: https://developers.facebook.com/'
-            response.status = 400
-            return {'msg': msg}
+                raise abort(400, 'Token expirado.')
+            raise abort(404, 'Usuário não encontrado informe um ID válido.')
         return data

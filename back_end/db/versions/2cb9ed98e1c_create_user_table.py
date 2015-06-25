@@ -20,10 +20,10 @@ def upgrade():
     op.create_table(
         'user',
         sa.Column('id', sa.Integer, primary_key=True),
-        sa.Column('fb_id', sa.Integer, nullable=False),
-        sa.Column('username', sa.String(50), nullable=False),
+        sa.Column('fb_id', sa.BigInteger, unique=True, nullable=False),
+        sa.Column('username', sa.String(50)),
         sa.Column('name', sa.String(80), nullable=False),
-        sa.Column('gender', sa.String(80)),
+        sa.Column('gender', sa.String(10)),
         sa.Column('birthday', sa.Date()),
     )
 

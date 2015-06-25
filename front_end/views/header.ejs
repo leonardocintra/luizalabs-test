@@ -1,13 +1,34 @@
-<!doctype html>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>LuizaLabs - FacebookAPI</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
-</head>
-<body id="users">
-<main>
-<div class="container">
+    </head>
+    <body id="users">
+        <header>
+            <nav class="navbar navbar-fixed-top">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a href="/" title="Usuários" class="navbar-brand">LuizaLabs</a>
+                    </div>
+
+                    <div class="collapse navbar-collapse" id="nav">
+                        <form action="" class="navbar-form">
+                            <input name="query" v-model="query" type="text" class="form-control">
+                        </form>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main>
+            <div class="container">

@@ -19,7 +19,17 @@ class UserControllerTest(TestCase):
 
     def test_list(self):
         """ GET /api/users must be return status code 200. """
-        resp = requests.get(self.base_url.format("/users"))
+        resp = requests.get(self.base_url.format("/users/"))
+        self.assertEqual(200, resp.status_code)
+
+    def test_list_paginate(self):
+        """ GET /api/users?page=<page> must be return status code 200. """
+        resp = requests.get(self.base_url.format("/users/?page=2"))
+        self.assertEqual(200, resp.status_code)
+
+    def test_list_search(self):
+        """ GET /api/users?search=<word> must be return status code 200. """
+        resp = requests.get(self.base_url.format("/users/?search=Tereza Bulkow"))
         self.assertEqual(200, resp.status_code)
 
     def test_detail(self):
@@ -58,6 +68,6 @@ class UserControllerTest(TestCase):
     def test_post_in_get(self):
         """ POST /api/users must be return status code 405 <Method Not Allowed>.
         """
-        url = self.base_url.format("/users")
+        url = self.base_url.format("/users/")
         resp = requests.post(url)
         self.assertEqual(405, resp.status_code)

@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 import os
 import click
 import env
-from bottle import Bottle, run, response, HTTPResponse, static_file, TEMPLATE_PATH
+from bottle import Bottle, run, response, static_file, TEMPLATE_PATH
 from bottle.ext import sqlalchemy
 from app.models import engine, Model
 from app.routes import urlpatterns
@@ -21,6 +21,8 @@ urlpatterns(app)
 def enable_cors():
     hosts = '*' if settings.DEBUG else settings.ALLOWED_HOSTS
     response.headers['Access-Control-Allow-Origin'] = hosts
+    response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, OPTIONS'
+    response.headers['Access-Control-Allow-Headers'] = 'Origin, Accept, Content-Type, X-Requested-With, X-CSRF-Token'
 
 
 @app.route('/assets/<path:path>', name='assets')
