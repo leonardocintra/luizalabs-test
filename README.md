@@ -1,11 +1,6 @@
 # LuizaLabs Test
 
 
-Aplicação desenvolvida em dois módulos:
-
-* Front-End: Node.js, Vue.js, jQuery e Bootstrap.
-* Back-End: Python e MySQL.
-
 #### Objetivos
 
 * O front deverá se conectar ao back­end por API
@@ -15,6 +10,13 @@ Aplicação desenvolvida em dois módulos:
 * Utilizar uma ferramenta de versionamento
 * Documentar como rodar o projeto
 
+
+#### Tecnologias
+
+Aplicação desenvolvida em dois módulos:
+
+* Front-End: Node.js, Vue.js, jQuery e Bootstrap.
+* Back-End: Python, Bottle, SQLAlchemy (ORM), Alembic(Data base versionning), e MySQL.
 
 #### Dependências
 
