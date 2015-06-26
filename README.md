@@ -1,10 +1,7 @@
 # LuizaLabs Test
 
+
 #### Objetivos
-
-Desenvolver um sistema de cadastro de usuários
-
-#### Requisitos
 
 * O front deverá se conectar ao back­end por API
 * API deve seguir os princípios REST
@@ -14,12 +11,18 @@ Desenvolver um sistema de cadastro de usuários
 * Documentar como rodar o projeto
 
 
+#### Tecnologias
+
+Aplicação desenvolvida em dois módulos:
+
+* Front-End: Node.js, Vue.js, jQuery e Bootstrap.
+* Back-End: Python, Bottle, SQLAlchemy (ORM), Alembic(Data base versionning), e MySQL.
+
 #### Dependências
 
 * Python >= v3.4
 * Node.js
 * MySQL
-
 
 #### Download do projeto
 
