@@ -1,6 +1,6 @@
 <% include ../header %>
 <h1 v-show="isList">Usuários <a href="/" title="Novo usuário" class="btn btn-default btn-sm">Adicionar</a></h1>
-<h1 v-show="userExists">Editar Usuário</h1>
+<h1 v-show="isForm">Editar Usuário</h1>
 
 <div class="user-list" v-show="isList">
     <table class="table table-hover">
@@ -12,11 +12,11 @@
 
         <tbody>
             <tr v-repeat="user: query.objects" v-transtition="remove-transition" class="item-{{user.id}}">
-                <td v-on="click: edit(user)">{{user.name}}</td>
-                <td v-on="click: edit(user)">{{user.username}}</td>
-                <td v-on="click: edit(user)">{{user.fb_id}}</td>
+                <td><a href="#"  v-on="click: edit(user, $event)">{{user.name}}</a></td>
+                <td>{{user.username}}</td>
+                <td>{{user.fb_id}}</td>
                 <td>
-                    <button class="btn btn-link btn-sm" v-on="click: delete(user)"><i class="glyphicon glyphicon-trash"></i></button>
+                    <button class="btn btn-link btn-sm" v-on="click: delete(user, $event)"><i class="glyphicon glyphicon-trash"></i></button>
                 </td>
             </tr>
         </tbody>

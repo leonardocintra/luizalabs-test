@@ -1,4 +1,4 @@
-API_URL = "http://127.0.0.1:9080/api/";
+API_URL = "http://127.0.0.1:8080/api/";
 API_USER_URL = API_URL + "users/";
 API_FACEBOOK_URL = API_URL + "facebook/";
 
@@ -6,7 +6,7 @@ new Vue({
   el: "#users",
   data: {
     isList: false,
-    userExists: false,
+    isForm: false,
     searchText: "",
     query: {
       objects: [],
@@ -91,9 +91,9 @@ new Vue({
       var self = this;
 
       if (self.user.id) {
-        self.update(self.user.id);
+        return self.update(self.user, e);
       } else {
-        self.create();
+        return self.create();
       }
     },
     create: function() {
@@ -107,7 +107,7 @@ new Vue({
       jQuery.ajax(settings)
       .done(function(data) {
         self.user = self.objUser;;
-        self.userExists = false;
+        self.isForm = false;
         self.messages.success = "Usuário cadastrado com sucesso.";
       })
       .fail(function(jqXHR, textStatus, errorThrown) {
@@ -116,31 +116,43 @@ new Vue({
         };
       });
     },
-    edit: function(item) {
+    edit: function(item, e) {
+      e.preventDefault();
       var self = this;
-      self.detail(item.id);
-      self.userExists = true;
-      self.isList = false;
-    },
-    update: function(id) {
-      var self = this,
-      url = API_USER_URL + id;
 
-      var settings = {
+      self.detail(item.id);
+      self.isForm = true;
+      self.isList = false;
+      self.messages.success = "";
+    },
+    update: function(user, e) {
+      e.preventDefault();
+      var self = this,
+      url = API_USER_URL + user.id;
+
+      jQuery.ajax({
         "async": true,
         "crossDomain": true,
         "url": url,
         "type": "PUT",
-        "contentType": "application/json; charset=utf-8",
         "dataType": "json",
-        "mimeType": "multipart/form-data",
-        "data": self.user
-      };
-      jQuery.ajax(settings).done(function(resp) {
-        console.log(resp);
+        "contentType": "application/json",
+        "mimeType": "multipart/forma-data",
+        "headers": {"X-HTTP-Method-Override": "PUT"},
+        "data": self.user,
+        "statusCode": {
+          200: function(resp) {
+            self.messages.success = "Usuário cadastrado com sucesso.";
+            self.isForm = false;
+            self.isList = true;
+            self.list(self.query.current);
+          }
+        }
       });
     },
-    delete: function(item) {
+    delete: function(item, e) {
+      e.preventDefault();
+
       var self = this,
       url = API_USER_URL + item.id;
 
@@ -148,12 +160,13 @@ new Vue({
         "async": true,
         "crossDomain": true,
         "url": url,
-        "method": "DELETE",
-        "headers": {}
+        "type": "DELETE"
       };
-
-      jQuery.ajax(settings).fail(function(jqXHR, textStatus, errorThrown) {
-        console.log(jqXHR);
+      jQuery.ajax(settings).done(function(resp) {
+        jQuery('tr.item-' + item.id).addClass('bg-danger').fadeOut(800);
+        setInterval(function() {
+          jQuery('tr.item-' + item.id).remove()
+        }, 1000);
       });
     },
     getFacebookUser: function(e) {
@@ -173,7 +186,7 @@ new Vue({
 
         self.messages.success = "";
         self.messages.error = "";
-        self.userExists = true;
+        self.isForm = true;
       })
       .fail(function(jqXHR, textStatus, errorThrown) {
         var status = jqXHR.status;
@@ -189,7 +202,7 @@ new Vue({
       var self = this;
 
       self.user = self.objUser;
-      self.userExists = false;
+      self.isForm = false;
       self.isList = true;
 
       self.messages.success = "";

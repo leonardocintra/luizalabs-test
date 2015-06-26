@@ -16,6 +16,6 @@ class User(Model):
 
     def is_valid(self):
         return self.validates(
-            self.attr_validate('fb_id', self.fb_id, required=True),
+            # self.attr_validate('fb_id', self.fb_id, required=True, unique=True),
             self.attr_validate('name', self.name, min_length=3)
         )

@@ -49,7 +49,7 @@ class _ModelValidationMixin:
 
     """ Model Validation fields """
 
-    def attr_validate(self, col, field, required=True, min_length=None):
+    def attr_validate(self, col, field, required=True, min_length=None, **kwargs):
         msgs = {}
 
         if required and not field:
@@ -93,14 +93,14 @@ class _BaseQueryMixin:
     def get_or_404(cls, format=None, **kwargs):
         query = cls.query.filter_by(**kwargs).first()
         if query is None:
-            abort(404)
+            raise abort(404)
         return query
 
     @classmethod
     def list_or_404(cls, format=None, **kwargs):
         query = cls.query.filter_by(**kwargs)
         if query is None:
-            abort(404)
+            raise abort(404)
         return query
 
     def save(self):
@@ -114,7 +114,7 @@ class _BaseQueryMixin:
         finally:
             Session.flush()
             Session.close()
-        return self
+            return self
 
     def delete(self):
         Session.delete(self)

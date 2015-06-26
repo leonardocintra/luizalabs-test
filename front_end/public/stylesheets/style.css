@@ -26,9 +26,12 @@ nav {
     color: #fff;
     background-color: transparent;
 }
-
+.bg-danger {
+    background-color: #f2dede !important;
+}
 
 /******
 Transitions
 ******/
+.fade-transition { }
 .remove-transition { }

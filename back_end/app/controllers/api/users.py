@@ -1,4 +1,4 @@
-from bottle import request, response
+from bottle import request, response, abort
 from app.models import Pagination, serialize
 from app.models.user import User
 
@@ -51,23 +51,18 @@ class UserController:
         return user.errors_json()
 
     def update(self, pk):
-        data = request.forms
-        print(request.params.get('username'))
+        data = request.params
 
         user = User.get_or_404(id=pk)
+        user.fb_id = data.get('fb_id', '')
         user.username = data.get('username', '')
         user.name = data.get('name', '')
         user.gender = data.get('gender', '')
         user.birthday = data.get('birthday') if data.get('birthday') else None
 
-        print(data.get("username"))
-
         if user.is_valid():
             user.save()
             return user.as_json()
-
-        print(user.errors_json())
-        response.status = 400
         return user.errors_json()
 
     def delete(self, pk):
