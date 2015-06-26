@@ -20,5 +20,4 @@ def urlpatterns(app):
     app.route('/api/users/<pk>', ['OPTIONS', 'PUT'], user.update)
 
     # Facebook API
-    # app.route('/api/facebook/auth/', 'GET', facebook.auth)
     app.route('/api/facebook/<pk>', 'GET', facebook.detail)

@@ -108,13 +108,13 @@ class _BaseQueryMixin:
             if self.id is None:
                 Session.add(self)
             Session.commit()
-        except db.exc.IntegrityError:
+        except db.exc.DataError:
             Session.close()
             raise abort(409, "duplicate")
         finally:
             Session.flush()
             Session.close()
-            return self
+        return self
 
     def delete(self):
         Session.delete(self)
