@@ -18,15 +18,21 @@ Aplicação desenvolvida em dois módulos:
 * Front-End: Node.js, Vue.js, jQuery e Bootstrap.
 * Back-End: Python, Bottle, SQLAlchemy (ORM), Alembic(Data base versionning), e MySQL.
 
+
+## Instalação
+
+Antes de fazer o download do projeto, verifique se já possui as dependências abaixo. Caso não possua alguma delas, clique no nome da dependência para ser redirecionado ao site da mesma.
+
 #### Dependências
 
-* Python >= v3.4
-* Node.js
-* MySQL
+* [Python] - v3.4
+* [Node.js] - v0.10.25
+* [MySQL]
+
 
 #### Download do projeto
 
-Com as dependências já instaladas, abra o terminal e digite:
+Com as dependências já instaladas, abra o terminal para que possamos baixar nosso projeto:
 
 ```sh
     $ git clone https://github.com/matheusho/luizalabs-test.git
@@ -34,7 +40,7 @@ Com as dependências já instaladas, abra o terminal e digite:
 ```
 
 
-## Back-End
+### Back-End
 
 
 Acesse a pasta 'back_end' para começar a instalação:
@@ -102,7 +108,7 @@ python manage.py runserver
 Acesse no link: http://127.0.0.1:8080/
 
 
-## Front-End
+### Front-End
 
 Em uma nova janela do terminal acesse o diretório do projeto e vá até a pasta 'front_end'.
 
@@ -119,3 +125,8 @@ nodejs app.js
 ```
 
 Acesse no link: http://127.0.0.1:3000/
+
+
+[Python](//python.org/downloads)
+[Node.js](//nodejs.org/download/)
+[MySQL](//dev.mysql.com/downloads/mysql/)
