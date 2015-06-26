@@ -63,16 +63,16 @@ No arquivo env.py configure as seguintes variáveis de ambiente com os dados da 
 
 ```
 os.environ['DB_NAME'] = 'luizalabs'
-os.environ['DB_USER'] = 'yout_user'
-os.environ['DB_PASSWORD'] = 'your_password'
+os.environ['DB_USER'] = 'user'
+os.environ['DB_PASSWORD'] = 'pass'
 os.environ['DB_HOST'] = 'localhost'
 os.environ['DB_PORT'] = '5432'
 ```
 
-Configuração efetuada no env.py, precisamos configurar nosso sistema de versionamento de banco de dados. Abra o arquivo alembic.ini, vá até a linha 32 e substitua your_user e your_password com o seu usuário e senha do MySQL.
+Configuração efetuada no env.py, precisamos configurar nosso sistema de versionamento de banco de dados. Abra o arquivo alembic.ini, vá até a linha 32 e substitua user e password com o seu usuário e senha do MySQL.
 
 ```
-sqlalchemy.url = mysql://your_user:your_pasword@localhost/luizalabs
+sqlalchemy.url = mysql://user:pasword@localhost/luizalabs
 ```
 
 Gerandos as tabelas:
@@ -81,8 +81,14 @@ Gerandos as tabelas:
 alembic upgrade head
 ```
 
+##### Executando Testes
 
-##### Rodando o BackEnd
+```
+python manage.py test
+```
+
+
+##### Iniciando o servidor
 
 Após ter executado com sucesso os processos anteriores, é hora de rodar nosso back-end.
 
@@ -103,7 +109,7 @@ Em uma nova janela do terminal acesse o diretório do projeto e vá até a pasta
 npm install express express-load body-parser cookie-parser serve-favicon morgan ejs
 ```
 
-##### Rodando
+##### Iniciando o servidor
 
 ```
 nodejs app.js
