@@ -1,4 +1,5 @@
 API_URL = "http://127.0.0.1:8080/api/";
+API_USER_LIST_URL = API_URL + "users";
 API_USER_URL = API_URL + "users/";
 API_FACEBOOK_URL = API_URL + "facebook/";
 
@@ -12,7 +13,7 @@ new Vue({
       objects: [],
       prev: null,
       next: null,
-      pages: 1,
+      pages: null,
       current: null
     },
     user: {
@@ -60,7 +61,7 @@ new Vue({
     list: function(page, search) {
       var self = this,
       settings = self.settings
-      url = API_USER_URL + "?page=" + page;
+      url = API_USER_LIST_URL + "?page=" + page;
 
       if (search) {
         url += "&search=" + search;

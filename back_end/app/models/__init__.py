@@ -29,7 +29,7 @@ class Pagination:
             pages = 0
         else:
             pages = int(ceil(self.total / self.per_page))
-        return pages
+        return pages if pages > 1 else 0
 
     @property
     def objects(self):

@@ -1,4 +1,4 @@
-from bottle import request, response, abort
+from bottle import request, response
 from app.models import Pagination, serialize
 from app.models.user import User
 

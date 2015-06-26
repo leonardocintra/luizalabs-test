@@ -13,7 +13,7 @@ def urlpatterns(app):
     app.route('/', 'GET', home.index)
 
     # Users API routes
-    app.route('/api/users/', 'GET', user.list)
+    app.route('/api/users', 'GET', user.list)
     app.route('/api/users/', 'POST', user.create)
     app.route('/api/users/<pk>', 'GET', user.detail)
     app.route('/api/users/<pk>', ['OPTIONS', 'DELETE'], user.delete)

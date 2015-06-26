@@ -18,7 +18,7 @@ class FacebookControllerTest(TestCase):
         """
         fb_id = ''
         resp = requests.get(self.url.format(fb_id))
-        self.assertEqual(500, resp.status_code)
+        self.assertEqual(404, resp.status_code)
 
     def test_fb_id_invalid(self):
         """ GET /api/facebook/<pk> must be return status code 404. """
