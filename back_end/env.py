@@ -4,8 +4,8 @@ import os
 # DATABASE config
 os.environ['DB_ENGINE'] = 'mysql'
 os.environ['DB_NAME'] = 'luizalabs'
-os.environ['DB_USER'] = 'root'
-os.environ['DB_PASSWORD'] = 'root'
+os.environ['DB_USER'] = 'user'
+os.environ['DB_PASSWORD'] = 'pass'
 os.environ['DB_HOST'] = 'localhost'
 os.environ['DB_PORT'] = '5432'
 
