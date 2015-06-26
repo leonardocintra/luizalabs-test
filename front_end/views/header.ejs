@@ -29,7 +29,7 @@
                         </ul>
                         <form action="" class="navbar-form" v-show="isList">
                             <div class="form-group">
-                                <input name="query" placeholder="Buscar" v-model="query.search" type="text" class="form-control">
+                                <input name="query" placeholder="Buscar" v-model="searchText" type="text" class="form-control" v-on="keyup: search">
                             </div>
                         </form>
                     </div>

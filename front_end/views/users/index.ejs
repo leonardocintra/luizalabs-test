@@ -5,7 +5,6 @@
 <div class="user-list" v-show="isList">
     <table class="table table-hover">
         <thead>
-            <th></th>
             <th>Nome</th>
             <th>Usuário</th>
             <th colspan="2">Facebook ID</th>
@@ -13,7 +12,6 @@
 
         <tbody>
             <tr v-repeat="user: query.objects" v-transtition="remove-transition" class="item-{{user.id}}">
-                <td></td>
                 <td v-on="click: edit(user)">{{user.name}}</td>
                 <td v-on="click: edit(user)">{{user.username}}</td>
                 <td v-on="click: edit(user)">{{user.fb_id}}</td>

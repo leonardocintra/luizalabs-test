@@ -16,7 +16,7 @@ Desenvolver um sistema de cadastro de usuários
 
 #### Dependências
 
-* Python > v3.4
+* Python >= v3.4
 * Node.js
 * MySQL
 
@@ -100,7 +100,7 @@ Em uma nova janela do terminal acesse o diretório do projeto e vá até a pasta
 ##### Dependências
 
 ```
-npm install express express-load body-parser cookie-parser morgan ejs
+npm install express express-load body-parser cookie-parser serve-favicon morgan ejs
 ```
 
 ##### Rodando

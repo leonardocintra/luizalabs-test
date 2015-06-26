@@ -1,6 +1,4 @@
 <div id="form-user-component" v-show="userExists">
-    {{ user.name }}
-
     <form v-on="submit: submit">
         <input type="hidden" id="id_fb_id" v-model="user.fb_id" class="form-control">
         <div class="form-group">

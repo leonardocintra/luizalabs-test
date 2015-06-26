@@ -11,7 +11,8 @@ from app import settings
 connection_string = "{ENGINE}://{USER}:{PASSWORD}@{HOST}:{PORT}/{NAME}".format(
     **settings.DATABASE)
 engine = db.create_engine(connection_string)
-Session = db.orm.scoped_session(db.orm.sessionmaker(bind=engine))
+Session = db.orm.scoped_session(db.orm.sessionmaker(bind=engine,
+                                                    expire_on_commit=False))
 
 
 class Pagination:
@@ -109,14 +110,17 @@ class _BaseQueryMixin:
             Session.commit()
         except db.exc.IntegrityError:
             Session.close()
-            raise abort(409)
+            raise abort(409, "duplicate")
+        finally:
+            Session.flush()
+            Session.close()
         return self
 
     def delete(self):
-        session = Session
-        session.delete(self)
-        session.commit()
-        session.close()
+        Session.delete(self)
+        Session.commit()
+        Session.flush()
+        Session.close()
 
 
 class _BaseModel(_BaseQueryMixin, _ModelValidationMixin):

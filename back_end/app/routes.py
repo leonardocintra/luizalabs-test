@@ -14,10 +14,10 @@ def urlpatterns(app):
 
     # Users API routes
     app.route('/api/users/', 'GET', user.list)
-    app.route('/api/user/<pk>', 'GET', user.detail)
-    app.route('/api/user/', 'POST', user.create)
-    app.route('/api/user/<pk>', ['OPTIONS', 'PUT'], user.update)
-    app.route('/api/user/<pk>', ['OPTIONS', 'DELETE'], user.delete)
+    app.route('/api/users/<pk>', 'GET', user.detail)
+    app.route('/api/users/', 'POST', user.create)
+    app.route('/api/users/<pk>', ['OPTIONS', 'PUT'], user.update)
+    app.route('/api/users/<pk>', ['OPTIONS', 'DELETE'], user.delete)
 
     # Facebook API
     # app.route('/api/facebook/auth/', 'GET', facebook.auth)
