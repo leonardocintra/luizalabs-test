@@ -3,6 +3,14 @@
 
 #### Objetivos
 
+Desenvolver um cadastro de usuários com integração com o Facebook.
+
+A primeira etapa consiste em coletar informações do facebook utilizando um Facebook ID. Após a primeira etapa concluída, é apresentado um formulário para complementar o cadastro.
+
+Na listagem de usuários, os mesmos poderão ser alterados ou removidos.
+
+##### Requisitos
+
 * O front deverá se conectar ao back­end por API
 * API deve seguir os princípios REST
 * Salvar as informações necessárias em um banco de dados relacional de sua escolha
@@ -126,7 +134,6 @@ nodejs app.js
 
 Acesse no link: http://127.0.0.1:3000/
 
-
-[Python](//python.org/downloads)
-[Node.js](//nodejs.org/download/)
-[MySQL](//dev.mysql.com/downloads/mysql/)
+[Python]: //python.org/downloads
+[Node.js]:(//nodejs.org/download/
+[MySQL]: //dev.mysql.com/downloads/mysql/
