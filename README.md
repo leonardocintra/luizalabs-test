@@ -92,18 +92,11 @@ Configuração efetuada no env.py, precisamos configurar nosso sistema de versio
 sqlalchemy.url = mysql://user:pasword@localhost/luizalabs
 ```
 
-Gerandos as tabelas:
+##### Gerandos as tabelas
 
 ```
 alembic upgrade head
 ```
-
-##### Executando Testes
-
-```
-python manage.py test
-```
-
 
 ##### Iniciando o servidor
 
@@ -112,6 +105,14 @@ Após ter executado com sucesso os processos anteriores, é hora de rodar nosso 
 ```
 python manage.py runserver
 ```
+
+##### Executando Testes
+
+```
+python manage.py test
+```
+
+##### Acessando a aplicação
 
 Acesse no link: http://127.0.0.1:8080/
 
@@ -128,9 +129,18 @@ npm install express express-load body-parser cookie-parser serve-favicon morgan 
 
 ##### Iniciando o servidor
 
+Linux:
+
 ```
-nodejs app.js
+nodejs app.js # Para linux
 ```
+
+Mac OS X
+```
+node app.js # Para linux
+```
+
+##### Acessando a aplicação
 
 Acesse no link: http://127.0.0.1:3000/
 
