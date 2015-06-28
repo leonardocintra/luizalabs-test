@@ -3,4 +3,5 @@ bottle
 bottle-sqlalchemy
 click
 mysqlclient
+requests
 SQLAlchemy

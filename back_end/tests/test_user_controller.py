@@ -34,7 +34,6 @@ class UserControllerTest(TestCase):
 
     def test_detail(self):
         """ GET /api/users/<pk> must be return status code 200. """
-        print(self.user.id)
         url = self.base_url.format("/users/{}".format(self.user.id))
         resp = requests.get(url)
         self.assertEqual(200, resp.status_code)
@@ -72,3 +71,6 @@ class UserControllerTest(TestCase):
         url = self.base_url.format("/users")
         resp = requests.post(url)
         self.assertEqual(405, resp.status_code)
+
+    def tearDownClass(cls):
+        User.query.delete()
