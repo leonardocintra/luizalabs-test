@@ -4,7 +4,6 @@ API_USER_URL = API_URL + "user/";
 API_FACEBOOK_URL = API_URL + "facebook/";
 
 dateRE = /^\d{4}\-\d{1,2}\-\d{1,2}$/;
-//dateRE = '/^\d{4}\/d{1,2}\/d{1,2}$/';
 
 new Vue({
   el: "#users",
