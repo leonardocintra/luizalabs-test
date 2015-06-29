@@ -24,7 +24,7 @@ Na listagem de usuários, os mesmos poderão ser alterados ou removidos.
 Aplicação desenvolvida em dois módulos:
 
 * Front-End: [Node.js], [Vue.js], [jQuery] e [Bootstrap].
-* Back-End: [Python], [Bottle], [SQLAlchemy (ORM)], [Alembic (Database migrations)], e [MySQL].
+* Back-End: [Python], [Bottle], [SQLAlchemy] - ORM, [Alembic] - Database migrations, e [MySQL].
 
 
 ## Instalação
