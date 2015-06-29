@@ -22,7 +22,6 @@ Na listagem de usuários, os mesmos poderão ser alterados ou removidos.
 
 ## Projeto
 
-##### Tecnologias
 
 Aplicação desenvolvida em dois módulos:
 
@@ -30,9 +29,7 @@ Aplicação desenvolvida em dois módulos:
 * Back-End: [Python], [Bottle], [SQLAlchemy] - ORM, [Alembic] - Database migrations, e [MySQL].
 
 
-##### Instalação
-
-Antes de fazer o download do projeto, verifique se já possui as dependências abaixo. Caso não possua alguma delas, clique no nome da dependência para ser redirecionado ao site da mesma:
+Antes de fazer o download do projeto, verifique se já possui as dependências abaixo. Caso não possua alguma, clique no nome da dependência para ser redirecionado ao site da mesma:
 
 * [Python] - v3.4
 * [Node.js] - v0.10.25
