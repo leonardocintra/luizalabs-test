@@ -112,7 +112,7 @@ python manage.py test
 
 ##### Acessando a aplicação
 
-Acesse no link: http://127.0.0.1:8080/
+Acesse no link: [http://127.0.0.1:8080/](http://127.0.0.1:8080/)
 
 
 ### Front-End
@@ -140,7 +140,7 @@ node app.js
 
 ##### Acessando a aplicação
 
-Acesse no link: http://localhost:3000/
+Acesse no link: [http://localhost:3000/](http://localhost:3000/)
 
 [Node.js]: http://nodejs.org/download
 [Vue.js]: http://vuejs.org
