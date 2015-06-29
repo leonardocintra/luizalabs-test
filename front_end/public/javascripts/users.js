@@ -226,9 +226,11 @@ new Vue({
             self.isList = false;
           } else {
             FB.login(function(response) {
-              self.getFBAPIuser(FB);
-              self.isForm = true;
-              self.isList = false;
+              if (response.status != "not_authorized") {
+                self.getFBAPIuser(FB);
+                self.isForm = true;
+                self.isList = false;
+              }
             }, {scope: 'public_profile,email'});
           }
         });

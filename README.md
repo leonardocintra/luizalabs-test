@@ -5,7 +5,7 @@
 
 Desenvolver um cadastro de usuários com integração com o Facebook.
 
-A primeira etapa consiste em coletar informações do facebook utilizando um Facebook ID. Após a primeira etapa concluída, é apresentado um formulário para complementar o cadastro.
+A primeira etapa consiste em coletar informações do facebook utilizando um Facebook ID informado pelo usuário, ou cadastrando com uma conta já existente. Após a primeira etapa concluída, é apresentado um formulário para complementar o cadastro.
 
 Na listagem de usuários, os mesmos poderão ser alterados ou removidos.
 
