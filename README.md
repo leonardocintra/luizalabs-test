@@ -132,12 +132,12 @@ npm install express express-load body-parser cookie-parser serve-favicon morgan 
 Linux:
 
 ```
-nodejs app.js # Para linux
+nodejs app.js
 ```
 
 Mac OS X
 ```
-node app.js # Para linux
+node app.js
 ```
 
 ##### Acessando a aplicação

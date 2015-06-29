@@ -231,7 +231,7 @@ new Vue({
                 self.isForm = true;
                 self.isList = false;
               }
-            }, {scope: 'public_profile,email'});
+            });
           }
         });
       });
