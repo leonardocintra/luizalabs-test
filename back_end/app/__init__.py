@@ -58,7 +58,6 @@ def runserver(port, ip, debug):
     run(app, host=ip, port=port,
         debug=settings.DEBUG, reloader=settings.DEBUG)
     click.echo('Start server at: {}:{}'.format(ip, port))
-    run(app=app, host=ip, port=port, debug=debug, reloader=debug)
 
 
 @cmds.command()
