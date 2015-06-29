@@ -175,28 +175,29 @@ new Vue({
       e.preventDefault();
       var self = this,
       url = API_USER_URL + user.id;
-
-      jQuery.ajax({
-        "async": true,
-        "crossDomain": true,
-        "url": url,
-        "type": "PUT",
-        "dataType": "json",
-        "contentType": "application/json",
-        "mimeType": "multipart/forma-data",
-        "headers": {"X-HTTP-Method-Override": "PUT"},
-        "data": self.user,
-        "statusCode": {
-          200: function(resp) {
-            self.message = "Usuário cadastrado com sucesso.";
-            self.messages = self.newMessages;
-            self.messages.success = true;
-            self.isForm = false;
-            self.isList = true;
-            self.list(self.query.current);
+      if (this.isValid) {
+        jQuery.ajax({
+          "async": true,
+          "crossDomain": true,
+          "url": url,
+          "type": "PUT",
+          "dataType": "json",
+          "contentType": "application/json",
+          "mimeType": "multipart/forma-data",
+          "headers": {"X-HTTP-Method-Override": "PUT"},
+          "data": self.user,
+          "statusCode": {
+            200: function(resp) {
+              self.message = "Usuário cadastrado com sucesso.";
+              self.messages = self.newMessages;
+              self.messages.success = true;
+              self.isForm = false;
+              self.isList = true;
+              self.list(self.query.current);
+            }
           }
-        }
-      });
+        });
+      };
     },
     delete: function(item, e) {
       e.preventDefault();
