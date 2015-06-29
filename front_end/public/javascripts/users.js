@@ -171,14 +171,16 @@ new Vue({
         }, 1000);
       });
     },
-    fbLogin: function() {
-      var resp = fbLogin();
-      if (resp == 'connected') {
-        self.isFBLogged = true;
-      } else {
-        self.user = resp;
-        self.isForm = true;
-      };
+    cancel: function(e) {
+      e.preventDefault();
+      var self = this;
+
+      self.user = self.objUser;
+      self.isForm = false;
+      self.isList = true;
+
+      self.messages.success = "";
+      self.messages.error = "";
     },
     getFacebookUser: function(e) {
       e.preventDefault();
@@ -208,16 +210,37 @@ new Vue({
         }
       });
     },
-    cancel: function(e) {
-      e.preventDefault();
+    fbLogin: function() {
       var self = this;
-
-      self.user = self.objUser;
-      self.isForm = false;
-      self.isList = true;
-
-      self.messages.success = "";
-      self.messages.error = "";
+      jQuery.ajaxSetup({ cache: true });
+      jQuery.getScript('//connect.facebook.net/en_US/sdk.js', function(){
+        FB.init({
+          appId: '896437553749930',
+          version: 'v2.3'
+        });
+        $('#loginbutton,#feedbutton').removeAttr('disabled');
+        FB.getLoginStatus(function(response) {
+          if (response.status == 'connected') {
+            self.
+            self.isForm = true;
+            self.isList = false;
+          } else {
+            FB.login(function(response) {
+              self.getFBAPIuser(FB);
+              self.isForm = true;
+              self.isList = false;
+            }, {scope: 'public_profile,email'});
+          }
+        });
+      });
+      return false;
+    },
+    getFBAPIuser: function(FB) {
+      var self = this;
+      FB.api('/me', function(response) {
+        self.user = response;
+        self.user.fb_id = response.id;
+      });
     }
   }
 });

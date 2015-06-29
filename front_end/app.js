@@ -8,7 +8,7 @@ var bodyParser = require('body-parser');
 
 var app = express();
 var server = require('http').createServer(app)
-var port = proccess.env.PORT || 3000;
+var port = process.env.PORT || 3000;
 
 var error = require('./middleware/error');
 
