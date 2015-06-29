@@ -23,7 +23,7 @@ Na listagem de usuários, os mesmos poderão ser alterados ou removidos.
 
 Aplicação desenvolvida em dois módulos:
 
-* Front-End: Node.js, Vue.js, jQuery e Bootstrap.
+* Front-End: [Node.js], [Vue.js], [jQuery] e [Bootstrap].
 * Back-End: Python, Bottle, SQLAlchemy (ORM), Alembic(Data base versionning), e MySQL.
 
 
@@ -142,8 +142,15 @@ node app.js
 
 ##### Acessando a aplicação
 
-Acesse no link: http://127.0.0.1:3000/
+Acesse no link: http://localhost:3000/
 
-[Python]: //python.org/downloads
-[Node.js]:(//nodejs.org/download/
-[MySQL]: //dev.mysql.com/downloads/mysql/
+[Node.js]:(//nodejs.org/download)
+[Vue.js]:(//vuejs.org)
+[jQuery]:(//jquery.com)
+[Bootstrap]:(//getbootstrap.com)
+[Python]:(//python.org/downloads)
+[Bottle]:(//bottlepy.org)
+[SQLAlchemy]:(//sqlalchemy.org)
+[Alembic]:(//bitbucket.org/zzzeek/alembic)
+[MySQL]:(//dev.mysql.com/downloads/mysql)
+

@@ -37,7 +37,7 @@ app.use(error.serverError);
 
 
 server.listen(port, function() {
-  console.log("Listen http://127.0.0.1:3000/")
+  console.log("Listen http://localhost:3000/")
 });
 
 module.exports = app;

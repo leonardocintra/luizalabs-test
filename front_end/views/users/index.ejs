@@ -11,7 +11,7 @@
         </thead>
 
         <tbody>
-            <tr v-repeat="user: query.objects" v-transtition="remove-transition" class="item-{{user.id}}">
+            <tr v-repeat="user: query.objects" class="item-{{user.id}}" v-transtition>
                 <td><a href="#"  v-on="click: edit(user, $event)">{{user.name}}</a></td>
                 <td>{{user.username}}</td>
                 <td>{{user.fb_id}}</td>

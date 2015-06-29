@@ -3,8 +3,20 @@ API_USER_LIST_URL = API_URL + "users";
 API_USER_URL = API_URL + "user/";
 API_FACEBOOK_URL = API_URL + "facebook/";
 
+dateRE = /^\d{4}\-\d{1,2}\-\d{1,2}$/;
+//dateRE = '/^\d{4}\/d{1,2}\/d{1,2}$/';
+
 new Vue({
   el: "#users",
+  events: {
+    "hook:ready": function() {
+      var self = this;
+
+      if (window.location.pathname == '/users/') {
+        self.list(1);
+      };
+    },
+  },
   data: {
     isList: false,
     isForm: false,
@@ -25,7 +37,7 @@ new Vue({
       gender: "",
       birthday: null,
     },
-    objUser: {
+    newUser: {
       id: null,
       fb_id: null,
       username: "",
@@ -33,9 +45,21 @@ new Vue({
       gender: "",
       birthday: null,
     },
+    validation: {
+      name: false,
+      gender: false,
+      birthday: false
+    },
+    message: '',
     messages: {
-      error: "",
-      success: ""
+      error: false,
+      success: false,
+      info: false
+    },
+    newMessages: {
+      error: false,
+      success: false,
+      info: false
     },
     settings: {
       async: true,
@@ -47,16 +71,30 @@ new Vue({
       headers: {}
     },
   },
-  events: {
-    "hook:ready": function() {
-      var self = this;
-
-      if (window.location.pathname == '/users/') {
-        self.list(1);
-      };
+  filters: {
+    nameValidator: function(val) {
+      this.validation.name = !!val && !(val.length < 5);
+      return val;
+    },
+    genderValidator: function(val) {
+      this.validation.gender = !!val;
+      return val;
+    },
+    birthdayValidator: function(val) {
+      this.validation.birthday = dateRE.test(val);
+      return val;
     },
   },
-  filters: {
+  computed: {
+    isValid: function() {
+      var valid = true;
+      for (var key in this.validation) {
+        if(!this.validation[key]) {
+          valid = false;
+        }
+      }
+      return valid;
+    }
   },
   methods: {
     list: function(page, search) {
@@ -106,17 +144,23 @@ new Vue({
       settings.type = "POST";
       settings.data = self.user;
 
-      jQuery.ajax(settings)
-      .done(function(data) {
-        self.user = self.objUser;;
-        self.isForm = false;
-        self.messages.success = "Usuário cadastrado com sucesso.";
-      })
-      .fail(function(jqXHR, textStatus, errorThrown) {
-        if (jqXHR.status != 400) {
-          self.messages.error = "Usuário já registrado em nossa base de dados.";
-        };
-      });
+      if (this.isValid) {
+        jQuery.ajax(settings)
+        .done(function(data) {
+          self.user = self.newUser;;
+          self.isForm = false;
+          self.message = "Usuário cadastrado com sucesso.";
+          self.messages = self.newMessages;
+          self.messages.success = true;
+        })
+        .fail(function(jqXHR, textStatus, errorThrown) {
+          if (jqXHR.status != 400) {
+            self.message = "Usuário já registrado em nossa base de dados.";
+            self.messages = self.newMessages;
+            self.messages.error = true;
+          };
+        });
+      };
     },
     edit: function(item, e) {
       e.preventDefault();
@@ -125,7 +169,8 @@ new Vue({
       self.detail(item.id);
       self.isForm = true;
       self.isList = false;
-      self.messages.success = "";
+      self.message = "";
+      self.messages = self.newMessages;
     },
     update: function(user, e) {
       e.preventDefault();
@@ -144,7 +189,9 @@ new Vue({
         "data": self.user,
         "statusCode": {
           200: function(resp) {
-            self.messages.success = "Usuário cadastrado com sucesso.";
+            self.message = "Usuário cadastrado com sucesso.";
+            self.messages = self.newMessages;
+            self.messages.success = true;
             self.isForm = false;
             self.isList = true;
             self.list(self.query.current);
@@ -169,18 +216,22 @@ new Vue({
         setInterval(function() {
           jQuery('tr.item-' + item.id).remove()
         }, 1000);
+
+        self.message = 'Usuário excluído com sucesso.';
+        self.messages = self.newMessages;
+        self.messages.info = true;
       });
     },
     cancel: function(e) {
       e.preventDefault();
       var self = this;
 
-      self.user = self.objUser;
+      self.user = self.newUser;
       self.isForm = false;
       self.isList = true;
 
-      self.messages.success = "";
-      self.messages.error = "";
+      self.message = "";
+      self.messages = self.newMessages;
     },
     getFacebookUser: function(e) {
       e.preventDefault();
@@ -197,31 +248,37 @@ new Vue({
         self.user.gender = data.gender;
         self.user.birthday = data.birthday;
 
-        self.messages.success = "";
-        self.messages.error = "";
+        self.message = "";
+        self.messages = self.newMessages;
         self.isForm = true;
       })
       .fail(function(jqXHR, textStatus, errorThrown) {
         var status = jqXHR.status;
         if (status == 428) {
-          self.messages.validID = "Facebook ID é obrigatório."
+          self.message = "Facebook ID é obrigatório."
+          self.messages = self.newMessages;
+          self.messages.info = true;
         } else if (status == 404) {
-          self.messages.error = "Usuário não encontrado. Informe um ID válido."
+          self.message = "Usuário não encontrado. Informe um ID válido."
+          self.messages = self.newMessages;
+          self.messages.error = true;
         }
       });
     },
     fbLogin: function() {
       var self = this;
+      self.message = '';
+      self.messages = self.newMessages;
+
       jQuery.ajaxSetup({ cache: true });
       jQuery.getScript('//connect.facebook.net/en_US/sdk.js', function(){
         FB.init({
           appId: '896437553749930',
           version: 'v2.3'
         });
-        $('#loginbutton,#feedbutton').removeAttr('disabled');
         FB.getLoginStatus(function(response) {
           if (response.status == 'connected') {
-            self.
+            self.getFBAPIuser(FB);
             self.isForm = true;
             self.isList = false;
           } else {
@@ -235,13 +292,15 @@ new Vue({
           }
         });
       });
-      return false;
     },
     getFBAPIuser: function(FB) {
       var self = this;
       FB.api('/me', function(response) {
-        self.user = response;
         self.user.fb_id = response.id;
+        self.username = response.username;
+        self.user.name = response.name;
+        self.user.gender = response.gender;
+        self.user.birthday = response.birthday;
       });
     }
   }

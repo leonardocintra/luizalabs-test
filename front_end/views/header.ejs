@@ -39,14 +39,12 @@
         <main>
             <div class="container">
                 <div class="col-sm-8 col-sm-offset-2">
-                    <div class="alert alert-success" v-show="messages.success">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"
-                        ><span aria-hidden="true">&times;</span></button>
-                        <p v-text="messages.success"></p>
-                    </div>
-
-                    <div class="alert alert-danger" v-show="messages.error">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"
-                        ><span aria-hidden="true">&times;</span></button>
-                        <p v-text="messages.error"></p>
-                    </div>
+                    <div class="alert"
+                    v-class="alert-success: messages.success,
+                    alert-danger: messages.error,
+                    alert-info: messages.info"
+                    v-show="message">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"
+                    ><span aria-hidden="true">&times;</span></button>
+                    <p v-text="message"></p>
+                </div>
