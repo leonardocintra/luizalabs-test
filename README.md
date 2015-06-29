@@ -79,7 +79,7 @@ No arquivo env.py configure as seguintes variáveis de ambiente com os dados da 
 ```
 os.environ['DB_NAME'] = 'luizalabs'
 os.environ['DB_USER'] = 'user'
-os.environ['DB_PASSWORD'] = 'pass'
+os.environ['DB_PASSWORD'] = 'password'
 os.environ['DB_HOST'] = 'localhost'
 os.environ['DB_PORT'] = '5432'
 ```
@@ -87,7 +87,7 @@ os.environ['DB_PORT'] = '5432'
 Configuração efetuada no env.py, precisamos configurar nosso sistema de versionamento de banco de dados. Abra o arquivo alembic.ini, vá até a linha 32 e substitua user e password com o seu usuário e senha do MySQL.
 
 ```
-sqlalchemy.url = mysql://user:pasword@localhost/luizalabs
+sqlalchemy.url = mysql://user:password@localhost/luizalabs
 ```
 
 ##### Gerandos as tabelas
