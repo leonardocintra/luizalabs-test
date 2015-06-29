@@ -144,13 +144,13 @@ node app.js
 
 Acesse no link: http://localhost:3000/
 
-[Node.js]:(nodejs.org/download)
-[Vue.js]:(vuejs.org)
-[jQuery]:(jquery.com)
-[Bootstrap]:(getbootstrap.com)
-[Python]:(python.org/downloads)
-[Bottle]:(bottlepy.org)
-[SQLAlchemy]:(sqlalchemy.org)
-[Alembic]:(bitbucket.org/zzzeek/alembic)
-[MySQL]:(dev.mysql.com/downloads/mysql)
+[Node.js]: http://nodejs.org/download
+[Vue.js]: http://vuejs.org
+[jQuery]: http://jquery.com
+[Bootstrap]: http://getbootstrap.com
+[Python]: http://python.org/downloads
+[Bottle]: http://bottlepy.org
+[SQLAlchemy]: http://sqlalchemy.org
+[Alembic]: http://bitbucket.org/zzzeek/alembic
+[MySQL]: http://dev.mysql.com/downloads/mysql
 
