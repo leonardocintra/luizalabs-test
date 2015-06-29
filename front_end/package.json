@@ -1,10 +1,11 @@
 {
   "name": "front_end",
   "description": "LuizaLabs - Facebook API",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": false,
+  "main": "app.js",
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node app.js",
   },
   "dependencies": {
     "body-parser": "^1.13.1",
@@ -14,5 +15,8 @@
     "express-load": "^1.1.14",
     "morgan": "^1.6.0",
     "serve-favicon": "^2.3.0"
-  }
+  },
+  "engines": {
+    "node": "0.10.25"
+  },
 }

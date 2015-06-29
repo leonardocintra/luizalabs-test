@@ -7,8 +7,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var app = express();
-
 var server = require('http').createServer(app)
+var port = proccess.env.PORT || 3000;
 
 var error = require('./middleware/error');
 
@@ -36,7 +36,7 @@ app.use(error.notFound);
 app.use(error.serverError);
 
 
-server.listen(3000, function() {
+server.listen(port, function() {
   console.log("Listen http://127.0.0.1:3000/")
 });
 

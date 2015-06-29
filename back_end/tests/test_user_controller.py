@@ -39,21 +39,21 @@ class UserControllerTest(TestCase):
         self.assertEqual(200, resp.status_code)
 
     def test_post(self):
-        """ POST /api/users/ must be return status code 201 <Created>. """
-        url = self.base_url.format("/users/")
+        """ POST /api/user/ must be return status code 201 <Created>. """
+        url = self.base_url.format("/user/")
         resp = requests.post(url, self.data)
         self.assertEqual(201, resp.status_code)
 
     def test_post_required_facebook_id(self):
         """ POST /api/user must be return status code 428 <Precondition Required>.
         """
-        url = self.base_url.format("/users/")
+        url = self.base_url.format("/user/")
         resp = requests.post(url, {'fb_id': None})
         self.assertEqual(400, resp.status_code)
 
     def test_put(self):
         """ PUT /api/users/<pk> must be return status code 200. """
-        url = self.base_url.format("/users/{}".format(self.user.id))
+        url = self.base_url.format("/user/{}".format(self.user.id))
         resp = requests.put(url, self.data)
         self.assertEqual(200, resp.status_code)
 
@@ -61,7 +61,7 @@ class UserControllerTest(TestCase):
         """ DELETE /api/users/<pk> must be return status code 204 <No Content>.
         """
         user = User.query.order_by(db.desc(User.fb_id)).first()
-        url = self.base_url.format("/users/{}".format(user.id))
+        url = self.base_url.format("/user/{}".format(user.id))
         resp = requests.delete(url)
         self.assertEqual(204, resp.status_code)
 

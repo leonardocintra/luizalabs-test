@@ -1,6 +1,6 @@
 API_URL = "http://127.0.0.1:8080/api/";
 API_USER_LIST_URL = API_URL + "users";
-API_USER_URL = API_URL + "users/";
+API_USER_URL = API_URL + "user/";
 API_FACEBOOK_URL = API_URL + "facebook/";
 
 new Vue({
@@ -16,6 +16,7 @@ new Vue({
       pages: null,
       current: null
     },
+    isFBLogged: false,
     user: {
       id: null,
       fb_id: null,
@@ -70,8 +71,8 @@ new Vue({
       settings.url = url;
       jQuery.ajax(settings).done(function (resp) {
         self.query = resp;
-        self.isList = true;
       });
+      self.isList = true;
     },
     detail: function(id) {
       var self = this,
@@ -169,6 +170,15 @@ new Vue({
           jQuery('tr.item-' + item.id).remove()
         }, 1000);
       });
+    },
+    fbLogin: function() {
+      var resp = fbLogin();
+      if (resp == 'connected') {
+        self.isFBLogged = true;
+      } else {
+        self.user = resp;
+        self.isForm = true;
+      };
     },
     getFacebookUser: function(e) {
       e.preventDefault();
