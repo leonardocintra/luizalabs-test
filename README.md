@@ -122,7 +122,7 @@ Em uma nova janela do terminal acesse o diretório do projeto e vá até a pasta
 ##### Dependências
 
 ```
-npm install express express-load body-parser cookie-parser serve-favicon morgan ejs
+npm install
 ```
 
 ##### Iniciando o servidor
