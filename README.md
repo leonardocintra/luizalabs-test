@@ -40,7 +40,7 @@ Antes de fazer o download do projeto, verifique se já possui as dependências a
 
 Com as dependências já instaladas, abra o terminal para que possamos baixar nosso projeto:
 
-```sh
+```bash
 $ git clone https://github.com/matheusho/luizalabs-test.git
 $ cd luizalabs-test
 ```
@@ -52,24 +52,23 @@ $ cd luizalabs-test
 Acesse a pasta 'back_end' para começar a instalação:
 
 
-```sh
-    cd back_end
+```bash
+$ cd back_end
 ```
 
 ### Ambiente virtual e instação dependências
 
-```sh
+```bash
 $ pyvenv venv
 $ source venv/bin/activate
 $ pip install -r requirements.txt
 ```
 
-
 ### Banco de Dados
 
 No MySQL crie um schema com o nome luizalabs.
 
-```
+```bash
 $ mysql -u your_user -p
 $ create schema luizalabs
 ```
@@ -121,7 +120,7 @@ Em uma nova janela do terminal acesse o diretório do projeto e vá até a pasta
 
 ### Dependências
 
-```
+```bash
 $ npm install
 ```
 
@@ -129,12 +128,12 @@ $ npm install
 
 Linux:
 
-```
+```bash
 $ nodejs app.js
 ```
 
 Mac OS X
-```
+```bash
 $ node app.js
 ```
 
