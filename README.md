@@ -1,7 +1,7 @@
 # LuizaLabs Test
 
 
-##### Objetivos
+## Objetivos
 
 Desenvolver um cadastro de usuários com integração com o Facebook.
 
@@ -9,7 +9,7 @@ A primeira etapa consiste em coletar informações do facebook utilizando um Fac
 
 Na listagem de usuários, os mesmos poderão ser alterados ou removidos.
 
-##### Requisitos
+**Requisitos**
 
 * O front deverá se conectar ao back­end por API
 * API deve seguir os princípios REST
@@ -36,13 +36,13 @@ Antes de fazer o download do projeto, verifique se já possui as dependências a
 * [MySQL]
 
 
-#### Download do projeto
+### Download do projeto
 
 Com as dependências já instaladas, abra o terminal para que possamos baixar nosso projeto:
 
 ```sh
-    $ git clone https://github.com/matheusho/luizalabs-test.git
-    $ cd luizalabs-test
+$ git clone https://github.com/matheusho/luizalabs-test.git
+$ cd luizalabs-test
 ```
 
 
@@ -56,22 +56,22 @@ Acesse a pasta 'back_end' para começar a instalação:
     cd back_end
 ```
 
-##### Ambiente virtual e instação dependências
+### Ambiente virtual e instação dependências
 
 ```sh
-    pyvenv venv
-    source venv/bin/activate
-    pip install -r requirements.txt
+$ pyvenv venv
+$ source venv/bin/activate
+$ pip install -r requirements.txt
 ```
 
 
-##### Banco de Dados
+### Banco de Dados
 
 No MySQL crie um schema com o nome luizalabs.
 
 ```
-mysql -u your_user -p
-create schema luizalabs
+$ mysql -u your_user -p
+$ create schema luizalabs
 ```
 
 No arquivo env.py configure as seguintes variáveis de ambiente com os dados da sua instalação local.
@@ -92,25 +92,25 @@ sqlalchemy.url = mysql://user:password@localhost/luizalabs
 
 ##### Gerandos as tabelas
 
-```
-alembic upgrade head
+```bash
+$ alembic upgrade head
 ```
 
 ##### Iniciando o servidor
 
 Após ter executado com sucesso os processos anteriores, é hora de rodar nosso back-end.
 
-```
-python manage.py runserver
-```
-
-##### Executando Testes
-
-```
-python manage.py test
+```bash
+$ python manage.py runserver
 ```
 
-##### Acessando a aplicação
+### Executando Testes
+
+```bash
+$ python manage.py test
+```
+
+### Acessando a aplicação
 
 Acesse no link: [http://127.0.0.1:8080/](http://127.0.0.1:8080/)
 
@@ -119,26 +119,26 @@ Acesse no link: [http://127.0.0.1:8080/](http://127.0.0.1:8080/)
 
 Em uma nova janela do terminal acesse o diretório do projeto e vá até a pasta 'front_end'.
 
-##### Dependências
+### Dependências
 
 ```
-npm install
+$ npm install
 ```
 
-##### Iniciando o servidor
+### Iniciando o servidor
 
 Linux:
 
 ```
-nodejs app.js
+$ nodejs app.js
 ```
 
 Mac OS X
 ```
-node app.js
+$ node app.js
 ```
 
-##### Acessando a aplicação
+### Acessando a aplicação
 
 Acesse no link: [http://localhost:3000/](http://localhost:3000/)
 
