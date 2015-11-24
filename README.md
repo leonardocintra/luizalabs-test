@@ -75,7 +75,7 @@ $ create schema luizalabs
 
 No arquivo env.py configure as seguintes variáveis de ambiente com os dados da sua instalação local.
 
-```
+```python
 os.environ['DB_NAME'] = 'luizalabs'
 os.environ['DB_USER'] = 'user'
 os.environ['DB_PASSWORD'] = 'password'
